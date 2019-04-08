@@ -1,34 +1,44 @@
 package mp.alex.majorprojectmk2.database.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Model for the planet database.
  * Stores all ~100 columns, 4000 rows of info
+ *
+ * Planets have one-to-many relations (one planet can be assigned to many itineraries)
  */
 
+@Entity(tableName = "planet_table")
 public class PlanetModel {
 
     //This sucks, but need all the variables (at least, the large majority).
 
-    int id;
+    @PrimaryKey//(autoGenerate = true)
+    @ColumnInfo(name = "planet_id")
+    private int id;
+
     String name, planet_status;
     double mass, mass_error_min, mass_error_max, mass_sini, mass_sini_error_min, mass_sini_error_max, radius, radius_error_min, radius_error_max, orbital_period, orbital_period_error_min, orbital_period_error_max, semi_major_axis, semi_major_axis_error_min, semi_major_axis_error_max, eccentricity, eccentricty_error_min, eccentricity_error_max, inclination, inclination_error_min, inclination_error_max, angular_distance, discorvered;
     String updated;
-    double omega, omega_error_min, omega_error_max, tperi,tperi_error_min,tperi_error_max,tconj,tconj_error_min,tconj_error_max,tzero_tr,tzero_tr_error_min,tzero_tr_error_max,tzero_tr_sec,tzero_tr_sec_error_min,tzero_tr_sec_error_max,lambda_angle,lambda_angle_error_min,lambda_angle_error_max,impact_parameter,impact_parameter_error_min,impact_parameter_error_max,tzero_vr,tzero_vr_error_min,tzero_vr_error_max,k,k_error_min,k_error_max,temp_calculated,temp_calculated_error_min,temp_calculated_error_max,temp_measured,hot_podouble_lon,geometric_albedo,geometric_albedo_error_min,geometric_albedo_error_max,log_g;
-    String publication,detection_type,mass_detection_type,radius_detection_type,alternate_names,molecules,star_name;
-    double ra,dec,mag_v,mag_i,mag_j,mag_h,mag_k,star_distance,star_metallicity,star_mass,star_radius;
+    double omega, omega_error_min, omega_error_max, tperi, tperi_error_min, tperi_error_max, tconj, tconj_error_min, tconj_error_max, tzero_tr, tzero_tr_error_min, tzero_tr_error_max, tzero_tr_sec, tzero_tr_sec_error_min, tzero_tr_sec_error_max, lambda_angle, lambda_angle_error_min, lambda_angle_error_max, impact_parameter, impact_parameter_error_min, impact_parameter_error_max, tzero_vr, tzero_vr_error_min, tzero_vr_error_max, k, k_error_min, k_error_max, temp_calculated, temp_calculated_error_min, temp_calculated_error_max, temp_measured, hot_podouble_lon, geometric_albedo, geometric_albedo_error_min, geometric_albedo_error_max, log_g;
+    String publication, detection_type, mass_detection_type, radius_detection_type, alternate_names, molecules, star_name;
+    double ra, dec, mag_v, mag_i, mag_j, mag_h, mag_k, star_distance, star_metallicity, star_mass, star_radius;
     String star_sp_type;
-    double star_age,star_teff;
+    double star_age, star_teff;
     String star_alternate_names;
 
     //Constructors
 
-
+/*
     public PlanetModel() {
         this.id = id;
         this.name = name;
     }
+    */
 
     //returns all column info
     public PlanetModel(int id, String name, String Planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricty_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discorvered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_podouble_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
@@ -221,7 +231,7 @@ public class PlanetModel {
         return angular_distance;
     }
 
-    public double getDiscorvered() {
+    public double getDiscovered() {
         return discorvered;
     }
 

@@ -1,12 +1,19 @@
 package mp.alex.majorprojectmk2.database.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 /**
  * Model for the itinerary database.
  * Stores all x columns, y rows of info
  */
 
+@Entity(tableName = "itinerary_table")
 public class ItineraryListModel {
 
+    @PrimaryKey
+    @ColumnInfo(name = "itinerary_id")
     int id;
     String ItineraryListName;
 
