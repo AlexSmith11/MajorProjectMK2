@@ -1,12 +1,15 @@
-package mp.alex.majorprojectmk2.ui;
+package mp.alex.majorprojectmk2.ui.adapters;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import mp.alex.majorprojectmk2.R;
+import mp.alex.majorprojectmk2.ui.ItinerarySub;
 
 public class ItineraryMain extends AppCompatActivity {
 
@@ -26,5 +29,10 @@ public class ItineraryMain extends AppCompatActivity {
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final ItineraryMainAdapter adapter = new ItineraryMainAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

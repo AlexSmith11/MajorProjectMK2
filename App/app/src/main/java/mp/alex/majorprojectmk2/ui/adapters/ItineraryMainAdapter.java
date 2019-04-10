@@ -1,4 +1,4 @@
-package mp.alex.majorprojectmk2.database;
+package mp.alex.majorprojectmk2.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -30,12 +30,44 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
         mInflater = LayoutInflater.from(context);
     }
 
+    class ItineraryViewHolder extends RecyclerView.ViewHolder {
+        private final TextView itineraryItemView;
+
+        private ItineraryViewHolder(View itemView) {
+            super(itemView);
+            itineraryItemView = itemView.findViewById(R.id.textView);
+        }
+    }
+
+    /**
+     * When there are no existing view holders to use, creates a new one.
+     * Used when page(activity) is first opened.
+     * Defines row layout (inflates xml to find view)
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public ItineraryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new ItineraryViewHolder(itemView);
     }
 
+    /**
+     * Replaces old data, puts into old view holders already made.
+     * Gets the name of each planet from the PlanetModel class and adds to view holder IF:
+     * there are any planets in planetList. If not, displays message: "No Planets"
+     * (because... well, there aren't any left to display).
+     *
+     * Because of depreciation of 'fromHtml', need to check API level and use new or old method.
+     * Sets the bullet point for every element in displayed recycler list.
+     *
+     * Populates the rows xml with info from the item.
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ItineraryViewHolder holder, int position) {
         if(mItineraries != null) {
@@ -51,20 +83,14 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
         notifyDataSetChanged();
     }
 
+    /**
+     * When first called, planetList is null so use if not null.
+     * @return
+     */
     @Override
     public int getItemCount() {
         if (mItineraries != null)
             return mItineraries.size();
         else return 0;
     }
-
-    class ItineraryViewHolder extends RecyclerView.ViewHolder {
-        private final TextView itineraryItemView;
-
-        private ItineraryViewHolder(View itemView) {
-            super(itemView);
-            itineraryItemView = itemView.findViewById(R.id.textView);
-        }
-    }
-
 }

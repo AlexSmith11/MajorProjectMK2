@@ -21,7 +21,7 @@ public class PlanetEntity {
     public int id;
 
     String name, planet_status;
-    double mass, mass_error_min, mass_error_max, mass_sini, mass_sini_error_min, mass_sini_error_max, radius, radius_error_min, radius_error_max, orbital_period, orbital_period_error_min, orbital_period_error_max, semi_major_axis, semi_major_axis_error_min, semi_major_axis_error_max, eccentricity, eccentricty_error_min, eccentricity_error_max, inclination, inclination_error_min, inclination_error_max, angular_distance, discorvered;
+    double mass, mass_error_min, mass_error_max, mass_sini, mass_sini_error_min, mass_sini_error_max, radius, radius_error_min, radius_error_max, orbital_period, orbital_period_error_min, orbital_period_error_max, semi_major_axis, semi_major_axis_error_min, semi_major_axis_error_max, eccentricity, eccentricty_error_min, eccentricity_error_max, inclination, inclination_error_min, inclination_error_max, angular_distance, discovered;
     String updated;
     double omega, omega_error_min, omega_error_max, tperi, tperi_error_min, tperi_error_max, tconj, tconj_error_min, tconj_error_max, tzero_tr, tzero_tr_error_min, tzero_tr_error_max, tzero_tr_sec, tzero_tr_sec_error_min, tzero_tr_sec_error_max, lambda_angle, lambda_angle_error_min, lambda_angle_error_max, impact_parameter, impact_parameter_error_min, impact_parameter_error_max, tzero_vr, tzero_vr_error_min, tzero_vr_error_max, k, k_error_min, k_error_max, temp_calculated, temp_calculated_error_min, temp_calculated_error_max, temp_measured, hot_podouble_lon, geometric_albedo, geometric_albedo_error_min, geometric_albedo_error_max, log_g;
     String publication, detection_type, mass_detection_type, radius_detection_type, alternate_names, molecules, star_name;
@@ -32,19 +32,20 @@ public class PlanetEntity {
 
     //Constructors
 
-
+    /*
     public PlanetEntity() {
         this.id = id;
         this.name = name;
     }
+    */
 
 
     //returns all column info
     //Need to find out how to insert id into sql table without disrupting the order - see the import method. Leave a blank space?
-    public PlanetEntity(int id, String name, String Planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricty_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discorvered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_podouble_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
+    public PlanetEntity(int id, String name, String planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricty_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discovered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_podouble_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
         this.id = id;
         this.name = name;
-        this.planet_status = Planet_status;
+        this.planet_status = planet_status;
         this.mass = mass;
         this.mass_error_min = mass_error_min;
         this.mass_error_max = mass_error_max;
@@ -67,7 +68,7 @@ public class PlanetEntity {
         this.inclination_error_min = inclination_error_min;
         this.inclination_error_max = inclination_error_max;
         this.angular_distance = angular_distance;
-        this.discorvered = discorvered;
+        this.discovered = discovered;
         this.updated = updated;
         this.omega = omega;
         this.omega_error_min = omega_error_min;
@@ -233,7 +234,7 @@ public class PlanetEntity {
     }
 
     public double getDiscovered() {
-        return discorvered;
+        return discovered;
     }
 
     public String getUpdated() {
@@ -482,8 +483,8 @@ public class PlanetEntity {
         this.name = name;
     }
 
-    public void setPlanet_status(String lanet_status) {
-        this.planet_status = lanet_status;
+    public void setPlanet_status(String planet_status) {
+        this.planet_status = planet_status;
     }
 
     public void setMass(double mass) {
@@ -574,8 +575,8 @@ public class PlanetEntity {
         this.angular_distance = angular_distance;
     }
 
-    public void setDiscorvered(double discorvered) {
-        this.discorvered = discorvered;
+    public void setdiscovered(double discovered) {
+        this.discovered = discovered;
     }
 
     public void setUpdated(String updated) {

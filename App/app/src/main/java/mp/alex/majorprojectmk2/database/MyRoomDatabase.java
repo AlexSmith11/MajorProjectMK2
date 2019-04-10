@@ -10,11 +10,12 @@ import mp.alex.majorprojectmk2.database.dao.DAOPlanetItinerary;
 import mp.alex.majorprojectmk2.database.dao.DAOPlanets;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
+import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 
 /**
  * I use a Room Database as it adds a high amount of abstraction to my code.
  */
-@Database(entities = {ItineraryListEntity.class, PlanetEntity.class, PlanetEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {ItineraryListEntity.class, PlanetEntity.class, PlanetItinerary.class}, version = 1, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
     public abstract DAOItineraries daoItineraries();
     public abstract DAOPlanets daoPlanets();

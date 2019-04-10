@@ -34,9 +34,12 @@ public interface DAOPlanetItinerary {
     List<ItineraryListEntity> getItinerariesForPlanets(final int planetId);
     */
 
+    //I believe this is the correct query (or closer to being so)
+    /*
     @Query("SELECT * FROM planet_table INNER JOIN planet_itinerary_table ON" +
             " planet_table.id = planet_itinerary_table.pi_planet_id WHERE" +
             " planet_itinerary_table.pi_itinerary_id=:itineraryId")
     List<PlanetEntity> getPlanetsForItineraries(final int itineraryId);
+    */
 
 }

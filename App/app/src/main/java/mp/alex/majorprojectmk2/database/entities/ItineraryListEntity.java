@@ -17,14 +17,16 @@ import android.arch.persistence.room.PrimaryKey;
         */
 @Entity(tableName = "itinerary_table")
 public class ItineraryListEntity {
+
     @PrimaryKey
     @ColumnInfo(name = "id")
-    int id;
+    public int id;
     String itineraryListName;
 
     /**
      * Constructors
      */
+    /*
     public ItineraryListEntity() {
     }
 
@@ -32,6 +34,7 @@ public class ItineraryListEntity {
     public ItineraryListEntity(String itineraryListName) {
         this.itineraryListName = itineraryListName;
     }
+    */
 
     //Name and id (more useful)
     public ItineraryListEntity(int id, String itineraryListName) {
