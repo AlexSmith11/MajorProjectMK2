@@ -1,9 +1,8 @@
-package mp.alex.majorprojectmk2.database.models;
+package mp.alex.majorprojectmk2.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 /**
  * Model for the planet database.
@@ -13,13 +12,13 @@ import android.support.annotation.NonNull;
  */
 
 @Entity(tableName = "planet_table")
-public class PlanetModel {
+public class PlanetEntity {
 
     //This sucks, but need all the variables (at least, the large majority).
 
     @PrimaryKey//(autoGenerate = true)
-    @ColumnInfo(name = "planet_id")
-    private int id;
+    @ColumnInfo(name = "id")
+    public int id;
 
     String name, planet_status;
     double mass, mass_error_min, mass_error_max, mass_sini, mass_sini_error_min, mass_sini_error_max, radius, radius_error_min, radius_error_max, orbital_period, orbital_period_error_min, orbital_period_error_max, semi_major_axis, semi_major_axis_error_min, semi_major_axis_error_max, eccentricity, eccentricty_error_min, eccentricity_error_max, inclination, inclination_error_min, inclination_error_max, angular_distance, discorvered;
@@ -33,15 +32,16 @@ public class PlanetModel {
 
     //Constructors
 
-/*
-    public PlanetModel() {
+
+    public PlanetEntity() {
         this.id = id;
         this.name = name;
     }
-    */
+
 
     //returns all column info
-    public PlanetModel(int id, String name, String Planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricty_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discorvered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_podouble_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
+    //Need to find out how to insert id into sql table without disrupting the order - see the import method. Leave a blank space?
+    public PlanetEntity(int id, String name, String Planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricty_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discorvered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_podouble_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
         this.id = id;
         this.name = name;
         this.planet_status = Planet_status;
@@ -129,7 +129,8 @@ public class PlanetModel {
         this.star_alternate_names = star_alternate_names;
     }
 
-    //*********************************************GETTERS*******************************
+    //----------------------------------- Setters & Getters -----------------------------------
+    //*****************************************Getters*****************************************
 
     public int getIdPlanet() {
         return id;
@@ -471,7 +472,7 @@ public class PlanetModel {
         return star_alternate_names;
     }
 
-    //****************************************************Setters*************************************
+    //*******************************************Setters***************************************
 
     public void setId(int id) {
         this.id = id;

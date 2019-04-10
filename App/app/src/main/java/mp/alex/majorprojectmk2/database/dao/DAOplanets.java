@@ -7,7 +7,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import mp.alex.majorprojectmk2.database.models.PlanetModel;
+import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 
 /**
  * DAO for planets
@@ -22,11 +22,11 @@ import mp.alex.majorprojectmk2.database.models.PlanetModel;
 @Dao
 public interface DAOPlanets {
     @Insert
-    void insert(PlanetModel planetModel);
+    void insert(PlanetEntity planetEntity);
 
     @Query("DELETE FROM planet_table")
     void deleteAll();
 
     @Query("SELECT * from planet_table ORDER BY name ASC")  //name is the column that stores name of planet. Orders alphabetically
-    LiveData<List<PlanetModel>> getName();
+    LiveData<List<PlanetEntity>> getPlanetNames();
 }
