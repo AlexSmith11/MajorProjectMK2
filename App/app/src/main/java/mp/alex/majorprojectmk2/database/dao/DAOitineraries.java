@@ -23,6 +23,6 @@ public interface DAOItineraries {
     @Query("DELETE FROM itinerary_table")
     void deleteAll();
 
-    @Query("SELECT * from itinerary_table ORDER BY itineraryId ASC")
+    @Query("SELECT * from itinerary_table ORDER BY itineraryListName ASC")
     LiveData<List<ItineraryListEntity>> getItineraryListNames();
 }

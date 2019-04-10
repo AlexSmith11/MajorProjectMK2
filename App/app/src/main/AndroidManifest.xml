@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".ui.ItineraryMain" />
         <activity android:name=".ui.ItinerarySub" />
-        <activity android:name=".ui.ItineraryCreate"></activity>
+        <activity android:name=".ui.ItineraryCreate" />
     </application>
 
 </manifest>
