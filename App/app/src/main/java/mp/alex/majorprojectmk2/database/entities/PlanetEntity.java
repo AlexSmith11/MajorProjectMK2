@@ -16,7 +16,7 @@ public class PlanetEntity {
 
     //This sucks, but need all the variables (at least, the large majority).
 
-    @PrimaryKey//(autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     public int id;
 

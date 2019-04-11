@@ -9,17 +9,11 @@ import android.arch.persistence.room.PrimaryKey;
  * Entity(model) for the itinerary database.
  * Stores all x columns, y rows of info
  */
-/*
-@Entity(tableName = "itinerary_table",
-        foreignKeys = @ForeignKey(entity = PlanetEntity.class,
-        parentColumns = "id",
-        childColumns = "id",
-        onDelete = CASCADE))
-        */
+
 @Entity(tableName = "itinerary_table")
 public class ItineraryListEntity {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     public int id;
     public String itineraryListName;
@@ -27,11 +21,6 @@ public class ItineraryListEntity {
     /**
      * Constructors
      */
-    /*
-    public ItineraryListEntity() {
-    }
-*/
-
     //Name and id
     @Ignore
     public ItineraryListEntity(int id, String itineraryListName) {
@@ -43,7 +32,6 @@ public class ItineraryListEntity {
     public ItineraryListEntity(String itineraryListName) {
         this.itineraryListName = itineraryListName;
     }
-
 
     //----------------------------------- Setters & Getters -----------------------------------
     //setters

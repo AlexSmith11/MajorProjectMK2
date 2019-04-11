@@ -18,7 +18,7 @@ import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 /**
  * I use a Room Database as it adds a high amount of abstraction to my code.
  */
-@Database(entities = {ItineraryListEntity.class, PlanetEntity.class, PlanetItinerary.class}, version = 2, exportSchema = false)
+@Database(entities = {ItineraryListEntity.class, PlanetEntity.class, PlanetItinerary.class}, version = 3, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
     public abstract DAOItineraries daoItineraries();
     public abstract DAOPlanets daoPlanets();
@@ -80,16 +80,15 @@ public abstract class MyRoomDatabase extends RoomDatabase {
             /*
             If I want to start app with clean db on every start. May help with update of planet info
              */
+            /*
             if (itinDao.getAnyWord().length < 1) {
                 for (int i = 0; i <= itineraries.length -1; i++) {
                     ItineraryListEntity itineraryListEntity = new ItineraryListEntity((itineraries[i]));
                     itinDao.insert(itineraryListEntity);
                 }
             }
-
+            */
             return null;
         }
-
-
     }
 }

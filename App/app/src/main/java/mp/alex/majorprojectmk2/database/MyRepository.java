@@ -17,7 +17,7 @@ public class MyRepository {
     private DAOItineraries mDAOItineraries;
     private DAOPlanets mDAOPlanets;
     private DAOPlanetItinerary mDAOPlanetItineraries;
-    
+
     private LiveData<List<ItineraryListEntity>> mAllItineraries;
     private LiveData<List<PlanetEntity>> mAllPlanets;
     private LiveData<List<PlanetItinerary>> mAllPlanetItineraries;
