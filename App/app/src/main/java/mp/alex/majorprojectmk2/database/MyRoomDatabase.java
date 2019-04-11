@@ -1,9 +1,12 @@
 package mp.alex.majorprojectmk2.database;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import mp.alex.majorprojectmk2.database.dao.DAOItineraries;
 import mp.alex.majorprojectmk2.database.dao.DAOPlanetItinerary;
@@ -38,10 +41,53 @@ public abstract class MyRoomDatabase extends RoomDatabase {
                     //Creates the DB here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             MyRoomDatabase.class, "app_database")
-                            .fallbackToDestructiveMigration().build();
+                            .fallbackToDestructiveMigration()
+                            .addCallback(sRoomDatabaseCallback)
+                            .build();
                 }
             }
         }
         return INSTANCE;
+    }
+
+    /**
+     * When app is restarted, delete all content and repopulate the db
+     * Need to use AsyncTask as room cannot perform on the UI thread
+     *
+     */
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
+
+        //Start new AsyncTask to modify database with
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            new PopulateDbAsync(INSTANCE).execute();
+        }
+    };
+
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final DAOItineraries itinDao;
+        String[] itineraries = {"Retirement", "When I hit 30", "For Charlie", "Next Time"}; //Testing
+
+        PopulateDbAsync(MyRoomDatabase db) {
+            itinDao = db.daoItineraries();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            /*
+            Start app with clean db on every start. Will help with update of planet info
+             */
+            itinDao.deleteAll();
+
+            for(int i = 0; i<= itineraries.length -1; i++) {
+                ItineraryListEntity itineraryListEntity = new ItineraryListEntity(itineraries[i]);
+                itinDao.insert(itineraryListEntity);
+            }
+            return null;
+        }
+
+
     }
 }

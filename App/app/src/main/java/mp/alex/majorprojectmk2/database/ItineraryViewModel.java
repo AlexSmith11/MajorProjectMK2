@@ -29,8 +29,13 @@ public class ItineraryViewModel extends AndroidViewModel {
 
     //------------------------------------- Database Methods ---------------------------------------
     //Get all itineraries. Abstraction: Hides implementation from UI.
-    LiveData<List<ItineraryListEntity>> getmAllItineraries() {
+    public LiveData<List<ItineraryListEntity>> getAllItineraries() {
         return mAllItineraries;
+    }
+
+    //Delete specific Itinerary
+    public void deleteItinerary(ItineraryListEntity itineraryListEntity) {
+        myRepository.deleteItinerary(itineraryListEntity);
     }
 
     //Wrapper insert that references MyRepository's insert. Hides implementation of insert from UI.

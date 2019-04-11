@@ -2,6 +2,7 @@ package mp.alex.majorprojectmk2.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -21,7 +22,7 @@ public class ItineraryListEntity {
     @PrimaryKey
     @ColumnInfo(name = "id")
     public int id;
-    String itineraryListName;
+    public String itineraryListName;
 
     /**
      * Constructors
@@ -29,18 +30,20 @@ public class ItineraryListEntity {
     /*
     public ItineraryListEntity() {
     }
+*/
+
+    //Name and id
+    @Ignore
+    public ItineraryListEntity(int id, String itineraryListName) {
+        this.id = id;
+        this.itineraryListName = itineraryListName;
+    }
 
     //Just name
     public ItineraryListEntity(String itineraryListName) {
         this.itineraryListName = itineraryListName;
     }
-    */
 
-    //Name and id (more useful)
-    public ItineraryListEntity(int id, String itineraryListName) {
-        this.id = id;
-        this.itineraryListName = itineraryListName;
-    }
 
     //----------------------------------- Setters & Getters -----------------------------------
     //setters
@@ -60,7 +63,4 @@ public class ItineraryListEntity {
     public String getItineraryListName() {
         return this.itineraryListName;
     }
-
-
-
 }

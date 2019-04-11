@@ -84,6 +84,13 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
     }
 
     /**
+     * Gets position of a word so we can modify/delete specific ones (swipe/hold ability)
+     */
+    ItineraryListEntity getItineraryAtPosition(int position) {
+        return mItineraries.get(position);
+    }
+
+    /**
      * When first called, planetList is null so use if not null.
      * @return
      */

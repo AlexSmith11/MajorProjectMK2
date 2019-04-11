@@ -59,7 +59,6 @@ public class MyRepository {
         return mAllPlanetItineraries;
     }
 
-    //
     //------------------------------ Wrappers for the insert methods -------------------------------
     /**
      * Itinerary insert table
@@ -91,10 +90,20 @@ public class MyRepository {
         new insertPlanItinAsyncTask(mDAOPlanetItineraries).execute(planetItinerary);
     }
 
+    //------------------------------ Wrappers for the delete methods -------------------------------
+
+    /**
+     * Delete a single Itinerary from the list
+     * @param itineraryListEntity
+     */
+    public void deleteItinerary(ItineraryListEntity itineraryListEntity) {
+        new deleteOneItineraryAsyncTask(mDAOItineraries).execute(itineraryListEntity);
+    }
+
     //---------------------------------------- Async tasks -----------------------------------------
     //Insert
     /**
-     * Insert method
+     * Insert
      * Uses AsyncTask to make sure we're using seperate threads when we interact with our DB
      */
     private static class insertItineraryAsyncTask extends AsyncTask<ItineraryListEntity, Void, Void> {
@@ -136,5 +145,22 @@ public class MyRepository {
         }
     }
 
-    //
+    //Delete Single Row
+    /**
+     * Delete
+     * Uses AsyncTask to make sure we're using seperate threads when we interact with our DB
+     */
+    private static class deleteOneItineraryAsyncTask extends AsyncTask<ItineraryListEntity, Void, Void> {
+        private DAOItineraries mAsyncTaskDao;
+
+        deleteOneItineraryAsyncTask(DAOItineraries daoItin) {
+            mAsyncTaskDao = daoItin;
+        }
+        @Override
+        protected  Void doInBackground(final  ItineraryListEntity... params) {
+            mAsyncTaskDao.deleteItinerary(params[0]);
+            return null;
+        }
+    }
+
 }
