@@ -17,6 +17,7 @@ public class MyRepository {
     private DAOItineraries mDAOItineraries;
     private DAOPlanets mDAOPlanets;
     private DAOPlanetItinerary mDAOPlanetItineraries;
+    
     private LiveData<List<ItineraryListEntity>> mAllItineraries;
     private LiveData<List<PlanetEntity>> mAllPlanets;
     private LiveData<List<PlanetItinerary>> mAllPlanetItineraries;
@@ -100,6 +101,13 @@ public class MyRepository {
         new deleteOneItineraryAsyncTask(mDAOItineraries).execute(itineraryListEntity);
     }
 
+    /**
+     * Delete all itineraries
+     */
+    public void deleteAllItineraries() {
+        new deleteAllItinerariesAsyncTask(mDAOItineraries).execute();
+    }
+
     //---------------------------------------- Async tasks -----------------------------------------
     //Insert
     /**
@@ -145,11 +153,8 @@ public class MyRepository {
         }
     }
 
+    //----- Delete -----
     //Delete Single Row
-    /**
-     * Delete
-     * Uses AsyncTask to make sure we're using seperate threads when we interact with our DB
-     */
     private static class deleteOneItineraryAsyncTask extends AsyncTask<ItineraryListEntity, Void, Void> {
         private DAOItineraries mAsyncTaskDao;
 
@@ -159,6 +164,20 @@ public class MyRepository {
         @Override
         protected  Void doInBackground(final  ItineraryListEntity... params) {
             mAsyncTaskDao.deleteItinerary(params[0]);
+            return null;
+        }
+    }
+
+    //Delete All
+    private static class deleteAllItinerariesAsyncTask extends AsyncTask<Void, Void, Void> {
+        private DAOItineraries mAsyncTaskDao;
+
+        deleteAllItinerariesAsyncTask(DAOItineraries daoItin) {
+            mAsyncTaskDao = daoItin;
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteAllItineraries();
             return null;
         }
     }

@@ -3,14 +3,18 @@ package mp.alex.majorprojectmk2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import mp.alex.majorprojectmk2.ui.adapters.ItineraryMain;
+import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonItineraryMain;
+    private ItineraryViewModel mItineraryViewModel;
 
     /**
      * TO DO:
@@ -39,6 +43,26 @@ public class MainActivity extends AppCompatActivity {
                 openItineraryListMain();
             }
         });
+    }
+
+    /**
+     * Delete all Itineraries
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.buttonDeleteAllItineraries) {
+            Toast.makeText(this, "Deleting Itineraries",
+                    Toast.LENGTH_SHORT).show();
+
+            //Then delete data
+            mItineraryViewModel.deleteAllItineraries();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

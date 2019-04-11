@@ -18,6 +18,7 @@ import java.util.List;
 import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
+import mp.alex.majorprojectmk2.ui.ItineraryCreate;
 import mp.alex.majorprojectmk2.ui.ItinerarySub;
 
 public class ItineraryMain extends AppCompatActivity {
@@ -54,7 +55,7 @@ public class ItineraryMain extends AppCompatActivity {
         fabItinMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ItineraryMain.this, ItinerarySub.class);
+                Intent intent = new Intent(ItineraryMain.this, ItineraryCreate.class);
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -85,6 +86,5 @@ public class ItineraryMain extends AppCompatActivity {
                 });
 
         helper.attachToRecyclerView(recyclerView);
-
     }
 }

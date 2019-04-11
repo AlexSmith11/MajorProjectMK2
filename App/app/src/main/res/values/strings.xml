@@ -2,4 +2,12 @@
     <string name="app_name">MajorProjectMK2</string>
 
     <string name="buttonItineraryMain">Itinerary Menu</string>
+
+    <!-- Create new Itinerary -->
+    <string name="hint_itinerary">Enter Itinerary Name</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Itinerary not saved because entry is empty.</string>
+
+    <!-- Delete all Itineraries -->
+    <string name="buttonDeleteAllItineraries">Delete All Itineraries</string>
 </resources>

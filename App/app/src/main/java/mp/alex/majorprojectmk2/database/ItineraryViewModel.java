@@ -38,6 +38,11 @@ public class ItineraryViewModel extends AndroidViewModel {
         myRepository.deleteItinerary(itineraryListEntity);
     }
 
+    //Delete All Itineraries
+    public void deleteAllItineraries() {
+        myRepository.deleteAllItineraries();
+    }
+
     //Wrapper insert that references MyRepository's insert. Hides implementation of insert from UI.
     public void insert(ItineraryListEntity itineraryListEntity) {
         myRepository.insert(itineraryListEntity);
