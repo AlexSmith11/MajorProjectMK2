@@ -18,11 +18,17 @@ import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
  * Don't want to use Insert if 3rd table used
  *
  * Use LiveData to be notified of the query for names
+ *
+ * CAN USE JUNIT FOR DAO TESTING
  */
 @Dao
 public interface DAOPlanets {
     @Insert
     void insert(PlanetEntity planetEntity);
+
+    @Query("SELECT * FROM planet_table WHERE star_distance BETWEEN :lowestDistance AND :highestDistance ORDER BY name")
+    PlanetEntity searchDistanceOfPlanet(int lowestDistance, int highestDistance);
+    //LiveData<List<PlanetEntity>> selectSearch();
 
     @Query("DELETE FROM planet_table")
     void deleteAll();

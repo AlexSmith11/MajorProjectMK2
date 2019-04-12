@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import mp.alex.majorprojectmk2.ui.SearchNew;
 import mp.alex.majorprojectmk2.ui.itineraryadapter.ItineraryMain;
 import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 

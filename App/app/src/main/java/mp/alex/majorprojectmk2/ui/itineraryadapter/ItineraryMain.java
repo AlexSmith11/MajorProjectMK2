@@ -20,6 +20,9 @@ import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
 import mp.alex.majorprojectmk2.ui.ItineraryCreate;
 
+/**
+ * Displays All Current Itineraries in RecyclerView
+ */
 public class ItineraryMain extends AppCompatActivity {
 
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE =1;

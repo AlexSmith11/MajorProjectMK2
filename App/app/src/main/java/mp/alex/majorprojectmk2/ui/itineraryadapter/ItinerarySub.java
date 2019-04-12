@@ -1,4 +1,4 @@
-package mp.alex.majorprojectmk2.ui;
+package mp.alex.majorprojectmk2.ui.itineraryadapter;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import mp.alex.majorprojectmk2.R;
 
+/**
+ * Displays All Current Itineraries in RecyclerView
+ */
 public class SearchResult extends AppCompatActivity {
 
     @Override
