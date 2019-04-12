@@ -3,6 +3,10 @@
 
     <string name="buttonItineraryMain">Itinerary Menu</string>
 
+    <!-- New Search -->
+    <string name="title_activity_search_new">SearchNew</string>
+    <string name="buttonSearchNew">Search Planets</string>
+
     <!-- Create new Itinerary -->
     <string name="hint_itinerary">Enter Itinerary Name</string>
     <string name="button_save">Save</string>

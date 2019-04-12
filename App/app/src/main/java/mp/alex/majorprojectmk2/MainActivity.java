@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import mp.alex.majorprojectmk2.ui.adapters.ItineraryMain;
+import mp.alex.majorprojectmk2.ui.itineraryadapter.ItineraryMain;
 import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonItineraryMain;
+    private Button buttonItineraryMain, buttonSearchNew;
     private ItineraryViewModel mItineraryViewModel;
 
     /**
@@ -36,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //New Search Activity Button
+        buttonSearchNew = (Button) findViewById(R.id.buttonSearchNew);
+        buttonSearchNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSearchNew();
+            }
+        });
+
+        //Itinerary Activity Button
         buttonItineraryMain = (Button) findViewById(R.id.buttonItineraryMain);
         buttonItineraryMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
     //Opens ItineraryMain
     private void openItineraryListMain() {
         Intent intent = new Intent(this, ItineraryMain.class);
+        startActivity(intent);
+    }
+
+    //Opens SearchNew
+    private void openSearchNew() {
+        Intent intent = new Intent(this, SearchNew.class);
         startActivity(intent);
     }
 }

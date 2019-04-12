@@ -16,9 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.adapters.ItineraryMain" />
+        <activity android:name=".ui.itineraryadapter.ItineraryMain" />
         <activity android:name=".ui.ItinerarySub" />
         <activity android:name=".ui.ItineraryCreate" />
+        <activity android:name=".ui.planetadapter.SearchResult" />
+        <activity android:name=".ui.SearchNew"></activity>
     </application>
 
 </manifest>

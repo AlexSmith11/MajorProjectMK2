@@ -1,4 +1,4 @@
-package mp.alex.majorprojectmk2.ui.adapters;
+package mp.alex.majorprojectmk2.ui.itineraryadapter;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -19,7 +19,6 @@ import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
 import mp.alex.majorprojectmk2.ui.ItineraryCreate;
-import mp.alex.majorprojectmk2.ui.ItinerarySub;
 
 public class ItineraryMain extends AppCompatActivity {
 
