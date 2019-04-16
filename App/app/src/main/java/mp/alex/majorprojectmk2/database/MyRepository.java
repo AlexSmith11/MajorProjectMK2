@@ -32,6 +32,7 @@ public class MyRepository {
 
         mAllItineraries = mDAOItineraries.getItineraryListNames();
         mAllPlanets = mDAOPlanets.getPlanetNames();
+        //mAllPlanetInfo = mDAOPlanets.searchDistanceOfPlanet(lowestDistance, highestDistance);
         mAllPlanetItineraries = mDAOPlanetItineraries.getPlanetItineraryIds();
     }
 
@@ -46,11 +47,23 @@ public class MyRepository {
 
     /**
      * Returns cached planets as LiveData to use on separate thread.
+     * This is just the planet name, not the whole row of data
      * @return
      */
     LiveData<List<PlanetEntity>> getAllPlanets() {
         return mAllPlanets;
     }
+
+    /**
+     * Returns cached ver of all planets tha match search criteria (based on distance)
+     * @return
+     */
+/*
+    LiveData<List<PlanetEntity>> getAllPlanetInfo(int lowestDistance, int highestDistance) {
+        return mAllPlanetInfo;
+    }
+    */
+
 
     /**
      * Returns cached planetItineraries as livedata to use on separate thread.

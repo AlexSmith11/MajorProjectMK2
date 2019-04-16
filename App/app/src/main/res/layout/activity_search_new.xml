@@ -6,30 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.SearchNew">
 
-    <EditText
-        android:id="@+id/firstDate"
-        style="@style/text_view_style"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/hintSearchFirst"
-        android:inputType="textAutoComplete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/secondDate"
-        style="@style/text_view_style"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/hintSearchSecond"
-        android:inputType="textAutoComplete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstDate" />
-
     <Button
         android:id="@+id/buttonSearch"
         style="@style/button_style"
@@ -39,20 +15,85 @@
         android:layout_marginEnd="16dp"
         android:text="@string/buttonSearch"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondDate" />
+        app:layout_constraintTop_toBottomOf="@+id/arrivalDate" />
 
-    <EditText
-        android:id="@+id/editText"
+    <TextView
+        android:id="@+id/leaveDate"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
         android:inputType="date"
+        android:hint="--/--/----"
+        app:layout_constraintEnd_toStartOf="@+id/buttonLeaveDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/arrivalDate"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="--/--/----"
+        app:layout_constraintEnd_toStartOf="@+id/buttonArrivalDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leaveDate" />
+
+    <Button
+        android:id="@+id/buttonLeaveDate"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Enter Leave"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/leaveDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonArrivalDate"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Enter Arrival"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/arrivalDate"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLeaveDate" />
+
+    <!-- TEST: -->
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:hint="--/--/----"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSearch" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:hint="--/--/----"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 
 </android.support.constraint.ConstraintLayout>

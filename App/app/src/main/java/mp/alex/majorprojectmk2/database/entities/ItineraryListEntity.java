@@ -22,11 +22,13 @@ public class ItineraryListEntity {
      * Constructors
      */
     //Name and id
+    /*
     @Ignore
     public ItineraryListEntity(int id, String itineraryListName) {
         this.id = id;
         this.itineraryListName = itineraryListName;
     }
+    */
 
     //Just name
     public ItineraryListEntity(String itineraryListName) {
