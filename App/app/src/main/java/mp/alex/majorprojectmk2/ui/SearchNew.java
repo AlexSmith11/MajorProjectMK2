@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 import mp.alex.majorprojectmk2.R;
+import mp.alex.majorprojectmk2.ui.planetadapter.SearchResult;
 
 /**
  * NOTE: CHECK IF ARRIVAL DATE IS LESS THEN LEAVE DATE. IF SO, ASK AGAIN
@@ -21,10 +23,10 @@ import mp.alex.majorprojectmk2.R;
 
 public class SearchNew extends AppCompatActivity {
 
-    public String leaveSeconds, arrivalSeconds;
+    public static String leaveSeconds, arrivalSeconds;
     double leaveDay, leaveMonth, leaveYear, arrivalDay, arrivalMonth, arrivalYear;
 
-    private TextView activeDateDisplay, leaveDateTextView, arrivalDateTextView, textViewTest, textViewTest2;
+    private TextView activeDateDisplay, leaveDateTextView, arrivalDateTextView;
     private Button leaveDateButton, arrivalDateButton, searchButton;
     private Calendar activeDate, leaveDate, arrivalDate;
 
@@ -38,11 +40,7 @@ public class SearchNew extends AppCompatActivity {
             //Only search if both values have ben set
             @Override
             public void onClick(View v) {
-                if(leaveSeconds != null && !leaveSeconds.isEmpty()) {
-                    if(arrivalSeconds != null && !arrivalSeconds.isEmpty()) {
-                        startSearchResult();
-                    }
-                }
+                searchEvent();
             }
         });
 
@@ -57,11 +55,6 @@ public class SearchNew extends AppCompatActivity {
         leaveDateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDateDialog(leaveDateTextView, leaveDate);
-                leaveSeconds = leaveDateTextView.getText().toString();
-                //Test
-                textViewTest.setText(leaveSeconds);
-
-                Log.v("SearchResult","arrive value in OnClick: " + arrivalSeconds);
             }
         });
 
@@ -76,25 +69,12 @@ public class SearchNew extends AppCompatActivity {
         arrivalDateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDateDialog(arrivalDateTextView, arrivalDate);
-                arrivalSeconds = arrivalDateTextView.getText().toString();
-                //Test
-                textViewTest2.setText(arrivalSeconds);
-
-                Log.v("SearchResult","leave value in OnClick: " + leaveSeconds);
             }
         });
 
         // Display the current date (this method is below)
         updateDisplay(leaveDateTextView, leaveDate);
         updateDisplay(arrivalDateTextView, arrivalDate);
-
-        //************************************************TEST**************************************
-        textViewTest = (TextView) findViewById(R.id.textView2);
-        textViewTest2 = (TextView) findViewById(R.id.textView3);
-
-        Log.v("SearchResult","leave value in OnCreate: " + leaveSeconds);
-        Log.v("SearchResult","arrive value in OnCreate: " + arrivalSeconds);
-        //******************************************** TEST END ************************************
     }
 
     public void updateDisplay(TextView dateDisplay, Calendar date) {
@@ -106,6 +86,8 @@ public class SearchNew extends AppCompatActivity {
                         .append(date.get(Calendar.YEAR)));
 
         //Set leaveSeconds and arrivalSeconds to be passed to search result
+        leaveSeconds = (leaveDateTextView.getText()).toString();
+        arrivalSeconds = (arrivalDateTextView.getText()).toString();
     }
 
     public void showDateDialog(TextView dateDisplay, Calendar date) {
@@ -156,6 +138,32 @@ public class SearchNew extends AppCompatActivity {
         }
     }
 
+    /**
+     * When search button is pressed
+     *
+     * Error: Need to add additional parameter for if statements to make sure they aren't the same date or arrival is not before leaving
+     */
+    public void searchEvent() {
+        if(leaveSeconds != null && !leaveSeconds.isEmpty()) {
+            if(arrivalSeconds != null && !arrivalSeconds.isEmpty()) {
+                if (leaveSeconds.equals(arrivalDate)) {
+                    startSearchResult();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "Please select an arrival time",
+                        Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(),
+                    "Please select a leaving time",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Open SearchResult activity
+     */
     public void startSearchResult() {
         Intent intent = new Intent(this, SearchResult.class);
         startActivity(intent);
@@ -167,5 +175,13 @@ public class SearchNew extends AppCompatActivity {
 
     public String getArrivalSeconds() {
         return arrivalSeconds;
+    }
+
+    public static void setLeaveSeconds(String leaveSeconds) {
+        SearchNew.leaveSeconds = leaveSeconds;
+    }
+
+    public static void setArrivalSeconds(String arrivalSeconds) {
+        SearchNew.arrivalSeconds = arrivalSeconds;
     }
 }

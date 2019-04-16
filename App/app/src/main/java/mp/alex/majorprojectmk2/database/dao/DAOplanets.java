@@ -26,8 +26,8 @@ public interface DAOPlanets {
     @Insert
     void insert(PlanetEntity planetEntity);
 
-    @Query("SELECT * FROM planet_table WHERE star_distance BETWEEN :lowestDistance AND :highestDistance ORDER BY name")
-    PlanetEntity[] searchDistanceOfPlanet(int lowestDistance, int highestDistance);
+    @Query("SELECT * FROM planet_table WHERE star_distance < :distance ORDER BY name")
+    PlanetEntity[] searchDistanceOfPlanet(int distance);
 
     @Query("DELETE FROM planet_table")
     void deleteAll();

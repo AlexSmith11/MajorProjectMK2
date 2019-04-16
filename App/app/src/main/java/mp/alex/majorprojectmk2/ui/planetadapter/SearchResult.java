@@ -1,4 +1,4 @@
-package mp.alex.majorprojectmk2.ui;
+package mp.alex.majorprojectmk2.ui.planetadapter;
 
 import android.app.Activity;
 import android.content.Context;

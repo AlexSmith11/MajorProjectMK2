@@ -18,7 +18,7 @@
         <activity android:name=".ui.itineraryadapter.ItineraryMain" />
         <activity android:name=".ui.itineraryadapter.ItinerarySub" />
         <activity android:name=".ui.ItineraryCreate" />
-        <activity android:name=".ui.SearchResult" />
+        <activity android:name=".ui.planetadapter.SearchResult" />
         <activity android:name=".ui.SearchNew"></activity>
     </application>
 

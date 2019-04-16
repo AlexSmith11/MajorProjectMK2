@@ -29,7 +29,7 @@ public class PlanetViewModel {
         //super(application);
         myRepository = new MyRepository(application);
         mAllPlanets = myRepository.getAllPlanets();     //This is just the name. Call other method for
-        //mAllPlanetInfo = myRepository.getAllPlanetInfo(lowestDistance, highestDistance);
+        //mAllPlanetInfo = myRepository.getAllPlanetInfo(highestDistance);
 
 
 
