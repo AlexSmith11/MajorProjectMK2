@@ -40,9 +40,6 @@ public class SearchResult extends AppCompatActivity {
 
         StringTestGetArriveDate = mySearch.getArrivalSeconds();
         testGetArriveDate.setText(StringTestGetArriveDate);
-
-        Log.v("SearchResult","leave value: " + StringTestGetLeaveDate);
-
     }
 
 }
