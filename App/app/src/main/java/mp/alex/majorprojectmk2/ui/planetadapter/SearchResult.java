@@ -1,13 +1,23 @@
 package mp.alex.majorprojectmk2.ui.planetadapter;
 
 import android.app.Activity;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.List;
+
 import mp.alex.majorprojectmk2.R;
+import mp.alex.majorprojectmk2.database.PlanetViewModel;
+import mp.alex.majorprojectmk2.database.dao.DAOPlanets;
+import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.ui.SearchNew;
 
 /**
@@ -15,6 +25,11 @@ import mp.alex.majorprojectmk2.ui.SearchNew;
  *
  */
 public class SearchResult extends AppCompatActivity {
+
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE =1;
+
+    private PlanetViewModel mPlanetViewModel;
+    private double distance;
 
     private static final String TAG = "SearchResult";
 
@@ -27,19 +42,35 @@ public class SearchResult extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        SearchNew mySearch = new SearchNew();       //Create SearchNew obj to get date info
 
-        //Test Leave
-        testGetLeaveDate = (TextView) findViewById(R.id.testGetLeaveDate);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final PlanetAdapter adapter = new PlanetAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        StringTestGetLeaveDate = mySearch.getLeaveSeconds();
-        testGetLeaveDate.setText(StringTestGetLeaveDate);
+        /*
+        UI talks only to ViewModels. These persist when activity is destroyed so can keep info
+        For whenever someone returns.
+        */
 
-        //Test Arrive
-        testGetArriveDate = (TextView) findViewById(R.id.testGetArriveDate);
+        mPlanetViewModel = ViewModelProviders.of(this).get(PlanetViewModel.class);
 
-        StringTestGetArriveDate = mySearch.getArrivalSeconds();
-        testGetArriveDate.setText(StringTestGetArriveDate);
+        //For planet name
+        mPlanetViewModel.getAllPlanets().observe(this, new Observer<List<PlanetEntity>>() {
+            @Override
+            public void onChanged(@Nullable final List<PlanetEntity> planetEntities) {
+                //Update cached ver of Itineraries in adapter
+                adapter.setPlanetNameCalc(planetEntities);
+            }
+        });
+
+        //For planet name and calculation data
+        mPlanetViewModel.getAllPlanetsLessThanDist(distance).observe(this, new Observer<List<PlanetEntity>>() {
+            @Override
+            public void onChanged(@Nullable final List<PlanetEntity> planetEntities) {
+                //Update cached ver of Itineraries in adapter
+                adapter.setPlanetNameCalc(planetEntities);
+            }
+        });
     }
-
 }

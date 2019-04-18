@@ -58,7 +58,7 @@ public class SearchNew extends AppCompatActivity {
             }
         });
 
-        // Capture our View elements for the arrivval date function
+        // Capture our View elements for the arrival date function
         arrivalDateTextView = (TextView) findViewById(R.id.arrivalDate);
         arrivalDateButton = (Button) findViewById(R.id.buttonArrivalDate);
 
@@ -146,9 +146,9 @@ public class SearchNew extends AppCompatActivity {
     public void searchEvent() {
         if(leaveSeconds != null && !leaveSeconds.isEmpty()) {
             if(arrivalSeconds != null && !arrivalSeconds.isEmpty()) {
-                if (leaveSeconds.equals(arrivalDate)) {
-                    startSearchResult();
-                }
+                //if (leaveSeconds.equals(arrivalDate)) {}
+                startSearchResult();
+
             } else {
                 Toast.makeText(getApplicationContext(),
                         "Please select an arrival time",

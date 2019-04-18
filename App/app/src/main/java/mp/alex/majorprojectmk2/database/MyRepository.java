@@ -20,7 +20,10 @@ public class MyRepository {
 
     private LiveData<List<ItineraryListEntity>> mAllItineraries;
     private LiveData<List<PlanetEntity>> mAllPlanets;
+    private LiveData<List<PlanetEntity>> mAllPlanetsLessThan;
     private LiveData<List<PlanetItinerary>> mAllPlanetItineraries;
+
+    private double distance;
 
     //Constructor that gets handle to db & initialises the member variables
     MyRepository(Application application) {
@@ -31,8 +34,8 @@ public class MyRepository {
         mDAOPlanetItineraries = db.daoPlanetItinerary();
 
         mAllItineraries = mDAOItineraries.getItineraryListNames();
-        mAllPlanets = mDAOPlanets.getPlanetNames();
-        //mAllPlanetInfo = mDAOPlanets.searchDistanceOfPlanet(lowestDistance, highestDistance);
+        mAllPlanets = mDAOPlanets.searchAllPlanets();
+        mAllPlanetsLessThan = mDAOPlanets.searchDistanceLessThan(distance);
         mAllPlanetItineraries = mDAOPlanetItineraries.getPlanetItineraryIds();
     }
 
@@ -46,24 +49,22 @@ public class MyRepository {
     }
 
     /**
-     * Returns cached planets as LiveData to use on separate thread.
-     * This is just the planet name, not the whole row of data
+     * Returns cached planet names as LiveData to use on separate thread.
+     * This is just the planet name, not the whole row of data needed for calculations.
      * @return
      */
+
     LiveData<List<PlanetEntity>> getAllPlanets() {
         return mAllPlanets;
     }
 
     /**
-     * Returns cached ver of all planets tha match search criteria (based on distance)
+     * Returns cached ver of all planet names and calculation data that match search criteria (star_dist < distance)
      * @return
      */
-/*
-    LiveData<List<PlanetEntity>> getAllPlanetInfo(int lowestDistance, int highestDistance) {
-        return mAllPlanetInfo;
+    LiveData<List<PlanetEntity>> getAllPlanetsLessThanDistance(double distance) {
+        return mAllPlanetsLessThan;
     }
-    */
-
 
     /**
      * Returns cached planetItineraries as livedata to use on separate thread.
@@ -90,7 +91,7 @@ public class MyRepository {
      * Stops app from crashing.
      * @param planetEntity
      */
-    public void insert (PlanetEntity planetEntity) {
+    public void insert(PlanetEntity planetEntity) {
         new insertPlanetAsyncTask(mDAOPlanets).execute(planetEntity);
     }
 
@@ -100,7 +101,7 @@ public class MyRepository {
      * Stops app from crashing.
      * @param planetItinerary
      */
-    public void insert (PlanetItinerary planetItinerary) {
+    public void insert(PlanetItinerary planetItinerary) {
         new insertPlanItinAsyncTask(mDAOPlanetItineraries).execute(planetItinerary);
     }
 

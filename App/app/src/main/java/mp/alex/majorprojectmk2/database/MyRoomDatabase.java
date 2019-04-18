@@ -38,9 +38,7 @@ public abstract class MyRoomDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "app_database";
 
     public abstract DAOItineraries daoItineraries();
-
     public abstract DAOPlanets daoPlanets();
-
     public abstract DAOPlanetItinerary daoPlanetItinerary();
 
     private static MyRoomDatabase INSTANCE;
@@ -49,7 +47,7 @@ public abstract class MyRoomDatabase extends RoomDatabase {
      * Want to make sure that this is a singleton to prevent multiple instances of the DB being open
      * Fallback wipes and rebuilds the database instead of migrating when there is no migration object.
      * Migration is not needed here as the app is simple - optional feature to implement in time.
-     *
+     * <p>
      * Reads from the CSV using buffered readers and stores the values from it as content value pairs.
      * Iterates through CSV, adding to CV pairs and then stores into planet table.
      *

@@ -17,5 +17,4 @@ public class Calculations {
     //lookup how to have a generic java class (as we aren't using a standard java class args, etc)
 
 
-
 }

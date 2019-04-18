@@ -2,6 +2,7 @@ package mp.alex.majorprojectmk2.database;
 
 
 import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
 import java.util.List;
@@ -16,22 +17,31 @@ import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
  *
  * Provides data to UI from Repository, effectively separating the two (abstraction)
  */
-public class PlanetViewModel {
+public class PlanetViewModel extends AndroidViewModel {
 
     private MyRepository myRepository;
 
+    private double distance;
     private LiveData<List<PlanetEntity>> mAllPlanets;
-    private List<PlanetEntity> mAllPlanetInfo;
-    private LiveData<List<PlanetEntity>> searchByLiveData;
-
+    private LiveData<List<PlanetEntity>> mAllPlanetsLessThanDist;
 
     public PlanetViewModel(Application application) {
-        //super(application);
+        super(application);
         myRepository = new MyRepository(application);
         mAllPlanets = myRepository.getAllPlanets();     //This is just the name. Call other method for
-        //mAllPlanetInfo = myRepository.getAllPlanetInfo(highestDistance);
+        mAllPlanetsLessThanDist = myRepository.getAllPlanetsLessThanDistance(distance);
 
+    }
 
+    //------------------------------------- Database Methods ---------------------------------------
+    //Get all planet names. Abstraction: Hides implementation from UI.
 
+    public LiveData<List<PlanetEntity>> getAllPlanets() {
+        return mAllPlanets;
+    }
+
+    //Get all planet names with calc data.
+    public LiveData<List<PlanetEntity>> getAllPlanetsLessThanDist(double distance) {
+        return mAllPlanetsLessThanDist;
     }
 }

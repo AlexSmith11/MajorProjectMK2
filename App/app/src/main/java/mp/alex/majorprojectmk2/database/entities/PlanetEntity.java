@@ -2,7 +2,9 @@ package mp.alex.majorprojectmk2.database.entities;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
@@ -33,16 +35,9 @@ public class PlanetEntity {
 
     //Constructors
 
-    /*
-    public PlanetEntity() {
-        this.id = id;
-        this.name = name;
-    }
-    */
-
     //returns all column info
     //Need to find out how to insert id into sql table without disrupting the order - see the import method. Leave a blank space?
-    public PlanetEntity(String name, String planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricity_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discovered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_point_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
+    public PlanetEntity(@NonNull String name, String planet_status, double mass, double mass_error_min, double mass_error_max, double mass_sini, double mass_sini_error_min, double mass_sini_error_max, double radius, double radius_error_min, double radius_error_max, double orbital_period, double orbital_period_error_min, double orbital_period_error_max, double semi_major_axis, double semi_major_axis_error_min, double semi_major_axis_error_max, double eccentricity, double eccentricity_error_min, double eccentricity_error_max, double inclination, double inclination_error_min, double inclination_error_max, double angular_distance, double discovered, String updated, double omega, double omega_error_min, double omega_error_max, double tperi, double tperi_error_min, double tperi_error_max, double tconj, double tconj_error_min, double tconj_error_max, double tzero_tr, double tzero_tr_error_min, double tzero_tr_error_max, double tzero_tr_sec, double tzero_tr_sec_error_min, double tzero_tr_sec_error_max, double lambda_angle, double lambda_angle_error_min, double lambda_angle_error_max, double impact_parameter, double impact_parameter_error_min, double impact_parameter_error_max, double tzero_vr, double tzero_vr_error_min, double tzero_vr_error_max, double k, double k_error_min, double k_error_max, double temp_calculated, double temp_calculated_error_min, double temp_calculated_error_max, double temp_measured, double hot_point_lon, double geometric_albedo, double geometric_albedo_error_min, double geometric_albedo_error_max, double log_g, String publication, String detection_type, String mass_detection_type, String radius_detection_type, String alternate_names, String molecules, String star_name, double ra, double dec, double mag_v, double mag_i, double mag_j, double mag_h, double mag_k, double star_distance, double star_metallicity, double star_mass, double star_radius, String star_sp_type, double star_age, double star_teff, String star_alternate_names) {
         this.name = name;
         this.planet_status = planet_status;
         this.mass = mass;
@@ -133,343 +128,343 @@ public class PlanetEntity {
     //*****************************************Getters*****************************************
 
     public int getIdPlanet() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getPlanet_status() {
-        return planet_status;
+        return this.planet_status;
     }
 
     public double getMass() {
-        return mass;
+        return this.mass;
     }
 
     public double getMass_error_min() {
-        return mass_error_min;
+        return this.mass_error_min;
     }
 
     public double getMass_error_max() {
-        return mass_error_max;
+        return this.mass_error_max;
     }
 
     public double getMass_sini() {
-        return mass_sini;
+        return this.mass_sini;
     }
 
     public double getMass_sini_error_min() {
-        return mass_sini_error_min;
+        return this.mass_sini_error_min;
     }
 
     public double getMass_sini_error_max() {
-        return mass_sini_error_max;
+        return this.mass_sini_error_max;
     }
 
     public double getRadius() {
-        return radius;
+        return this.radius;
     }
 
     public double getRadius_error_min() {
-        return radius_error_min;
+        return this.radius_error_min;
     }
 
     public double getRadius_error_max() {
-        return radius_error_max;
+        return this.radius_error_max;
     }
 
     public double getOrbital_period() {
-        return orbital_period;
+        return this.orbital_period;
     }
 
     public double getOrbital_period_error_min() {
-        return orbital_period_error_min;
+        return this.orbital_period_error_min;
     }
 
     public double getOrbital_period_error_max() {
-        return orbital_period_error_max;
+        return this.orbital_period_error_max;
     }
 
     public double getSemi_major_axis() {
-        return semi_major_axis;
+        return this.semi_major_axis;
     }
 
     public double getSemi_major_axis_error_min() {
-        return semi_major_axis_error_min;
+        return this.semi_major_axis_error_min;
     }
 
     public double getSemi_major_axis_error_max() {
-        return semi_major_axis_error_max;
+        return this.semi_major_axis_error_max;
     }
 
     public double getEccentricity() {
-        return eccentricity;
+        return this.eccentricity;
     }
 
     public double getEccentricity_error_min() {
-        return eccentricity_error_min;
+        return this.eccentricity_error_min;
     }
 
     public double getEccentricity_error_max() {
-        return eccentricity_error_max;
+        return this.eccentricity_error_max;
     }
 
     public double getInclination() {
-        return inclination;
+        return this.inclination;
     }
 
     public double getInclination_error_min() {
-        return inclination_error_min;
+        return this.inclination_error_min;
     }
 
     public double getInclination_error_max() {
-        return inclination_error_max;
+        return this.inclination_error_max;
     }
 
     public double getAngular_distance() {
-        return angular_distance;
+        return this.angular_distance;
     }
 
     public double getDiscovered() {
-        return discovered;
+        return this.discovered;
     }
 
     public String getUpdated() {
-        return updated;
+        return this.updated;
     }
 
     public double getOmega() {
-        return omega;
+        return this.omega;
     }
 
     public double getOmega_error_min() {
-        return omega_error_min;
+        return this.omega_error_min;
     }
 
     public double getOmega_error_max() {
-        return omega_error_max;
+        return this.omega_error_max;
     }
 
     public double getTperi() {
-        return tperi;
+        return this.tperi;
     }
 
     public double getTperi_error_min() {
-        return tperi_error_min;
+        return this.tperi_error_min;
     }
 
     public double getTperi_error_max() {
-        return tperi_error_max;
+        return this.tperi_error_max;
     }
 
     public double getTconj() {
-        return tconj;
+        return this.tconj;
     }
 
     public double getTconj_error_min() {
-        return tconj_error_min;
+        return this.tconj_error_min;
     }
 
     public double getTconj_error_max() {
-        return tconj_error_max;
+        return this.tconj_error_max;
     }
 
     public double getTzero_tr() {
-        return tzero_tr;
+        return this.tzero_tr;
     }
 
     public double getTzero_tr_error_min() {
-        return tzero_tr_error_min;
+        return this.tzero_tr_error_min;
     }
 
     public double getTzero_tr_error_max() {
-        return tzero_tr_error_max;
+        return this.tzero_tr_error_max;
     }
 
     public double getTzero_tr_sec() {
-        return tzero_tr_sec;
+        return this.tzero_tr_sec;
     }
 
     public double getTzero_tr_sec_error_min() {
-        return tzero_tr_sec_error_min;
+        return this.tzero_tr_sec_error_min;
     }
 
     public double getTzero_tr_sec_error_max() {
-        return tzero_tr_sec_error_max;
+        return this.tzero_tr_sec_error_max;
     }
 
     public double getLambda_angle() {
-        return lambda_angle;
+        return this.lambda_angle;
     }
 
     public double getLambda_angle_error_min() {
-        return lambda_angle_error_min;
+        return this.lambda_angle_error_min;
     }
 
     public double getLambda_angle_error_max() {
-        return lambda_angle_error_max;
+        return this.lambda_angle_error_max;
     }
 
     public double getImpact_parameter() {
-        return impact_parameter;
+        return this.impact_parameter;
     }
 
     public double getImpact_parameter_error_min() {
-        return impact_parameter_error_min;
+        return this.impact_parameter_error_min;
     }
 
     public double getImpact_parameter_error_max() {
-        return impact_parameter_error_max;
+        return this.impact_parameter_error_max;
     }
 
     public double getTzero_vr() {
-        return tzero_vr;
+        return this.tzero_vr;
     }
 
     public double getTzero_vr_error_min() {
-        return tzero_vr_error_min;
+        return this.tzero_vr_error_min;
     }
 
     public double getTzero_vr_error_max() {
-        return tzero_vr_error_max;
+        return this.tzero_vr_error_max;
     }
 
     public double getK() {
-        return k;
+        return this.k;
     }
 
     public double getK_error_min() {
-        return k_error_min;
+        return this.k_error_min;
     }
 
     public double getK_error_max() {
-        return k_error_max;
+        return this.k_error_max;
     }
 
     public double getTemp_calculated() {
-        return temp_calculated;
+        return this.temp_calculated;
     }
 
     public double getTemp_calculated_error_min() {
-        return temp_calculated_error_min;
+        return this.temp_calculated_error_min;
     }
 
     public double getTemp_calculated_error_max() {
-        return temp_calculated_error_max;
+        return this.temp_calculated_error_max;
     }
 
     public double getTemp_measured() {
-        return temp_measured;
+        return this.temp_measured;
     }
 
     public double getHot_point_lon() {
-        return hot_point_lon;
+        return this.hot_point_lon;
     }
 
     public double getGeometric_albedo() {
-        return geometric_albedo;
+        return this.geometric_albedo;
     }
 
     public double getGeometric_albedo_error_min() {
-        return geometric_albedo_error_min;
+        return this.geometric_albedo_error_min;
     }
 
     public double getGeometric_albedo_error_max() {
-        return geometric_albedo_error_max;
+        return this.geometric_albedo_error_max;
     }
 
     public double getLog_g() {
-        return log_g;
+        return this.log_g;
     }
 
     public String getPublication() {
-        return publication;
+        return this.publication;
     }
 
     public String getDetection_type() {
-        return detection_type;
+        return this.detection_type;
     }
 
     public String getMass_detection_type() {
-        return mass_detection_type;
+        return this.mass_detection_type;
     }
 
     public String getRadius_detection_type() {
-        return radius_detection_type;
+        return this.radius_detection_type;
     }
 
     public String getAlternate_names() {
-        return alternate_names;
+        return this.alternate_names;
     }
 
     public String getMolecules() {
-        return molecules;
+        return this.molecules;
     }
 
     public String getStar_name() {
-        return star_name;
+        return this.star_name;
     }
 
     public double getRa() {
-        return ra;
+        return this.ra;
     }
 
     public double getDec() {
-        return dec;
+        return this.dec;
     }
 
     public double getMag_v() {
-        return mag_v;
+        return this.mag_v;
     }
 
     public double getMag_i() {
-        return mag_i;
+        return this.mag_i;
     }
 
     public double getMag_j() {
-        return mag_j;
+        return this.mag_j;
     }
 
     public double getMag_h() {
-        return mag_h;
+        return this.mag_h;
     }
 
     public double getMag_k() {
-        return mag_k;
+        return this.mag_k;
     }
 
     public double getStar_distance() {
-        return star_distance;
+        return this.star_distance;
     }
 
     public double getStar_metallicity() {
-        return star_metallicity;
+        return this.star_metallicity;
     }
 
     public double getStar_mass() {
-        return star_mass;
+        return this.star_mass;
     }
 
     public double getStar_radius() {
-        return star_radius;
+        return this.star_radius;
     }
 
     public String getStar_sp_type() {
-        return star_sp_type;
+        return this.star_sp_type;
     }
 
     public double getStar_age() {
-        return star_age;
+        return this.star_age;
     }
 
     public double getStar_teff() {
-        return star_teff;
+        return this.star_teff;
     }
 
     public String getStar_alternate_names() {
-        return star_alternate_names;
+        return this.star_alternate_names;
     }
 
     //*******************************************Setters***************************************

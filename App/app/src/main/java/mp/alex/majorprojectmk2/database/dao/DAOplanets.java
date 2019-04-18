@@ -26,12 +26,16 @@ public interface DAOPlanets {
     @Insert
     void insert(PlanetEntity planetEntity);
 
-    @Query("SELECT * FROM planet_table WHERE star_distance < :distance ORDER BY name")
-    PlanetEntity[] searchDistanceOfPlanet(int distance);
-
     @Query("DELETE FROM planet_table")
     void deleteAll();
 
-    @Query("SELECT * from planet_table ORDER BY name ASC")  //name is the column that stores name of planet. Orders alphabetically
-    LiveData<List<PlanetEntity>> getPlanetNames();
+    //To get calculation data? Or should I integrate this with search?
+    @Query("SELECT * FROM planet_table ORDER BY name")
+    LiveData<List<PlanetEntity>> searchAllPlanets();
+
+    //Search query for planets less distance than x (planets within time frame)
+    @Query("SELECT * FROM planet_table WHERE star_distance < :distance ORDER BY name")
+    LiveData<List<PlanetEntity>> searchDistanceLessThan(double distance);
+
+
 }
