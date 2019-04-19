@@ -30,12 +30,16 @@ import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.ui.planetadapter.SearchResult;
 
 /**
+ * SearchNew handles any searches to DB
+ * Current search: Less than Distance
+ * Can add more as addition features.
+ *
+ * Also implements date picker (calendar view).
+ * 
  * NOTE: CHECK IF ARRIVAL DATE IS LESS THEN LEAVE DATE. IF SO, ASK AGAIN
  */
 
 public class SearchNew extends AppCompatActivity {
-
-    double leaveDay, leaveMonth, leaveYear, arrivalDay, arrivalMonth, arrivalYear;
 
     public double distance;
 
@@ -154,6 +158,9 @@ public class SearchNew extends AppCompatActivity {
     /**
      * When search button is pressed
      *
+     * This is where we do our calculations for the search event with a distance search filter.
+     * We can add other filters to different search buttons.
+     *
      * Error: Need to add additional parameter for if statements to make sure they aren't the same date or arrival is not before leaving
      */
     public void searchEvent() {
@@ -163,13 +170,25 @@ public class SearchNew extends AppCompatActivity {
         long arrivalMilli = arrivalDate.getTime();
         long leavingMilli = leavingDate.getTime();
 
+        /*
+        To find the amount of travel time we have, we must subtract our leaving time from our arrival time.
+        Math.abs is to give an absolute number. It is not signed so if the
+        result is negative it does not matter - time cannot be negative.
+         */
         long diffSeconds = Math.abs(arrivalMilli - leavingMilli) / 1000;
-
         Log.i("TEST", String.valueOf(diffSeconds));
 
+        /*
+        Calculation to find the distance we are able to travel within the given time frame.
+        diffSeconds = the difference in seconds from when we leave Earth to when we arrive at our destination.
+        296794533.42 = 99% the speed of light in m/s.
+        3.086e+16 = how many meters are in a parsec.
+        distance = the distance we travel given our speed and travel time. Unit: Parsecs
+        Parsecs is the unit we need as this is what star_distance is stored as in the database.
+        */
         double distance = (diffSeconds*296794533.42) / 3.086e+16;
-
         Log.i("TEST", String.valueOf(diffSeconds));
+
 
         LiveData<List<PlanetEntity>> planets = planetViewModel.getAllPlanetsLessThanDist(distance);
         planets.observe(this, new Observer<List<PlanetEntity>>() {
@@ -178,7 +197,6 @@ public class SearchNew extends AppCompatActivity {
                 if (planetEntities == null) {
                     return;
                 }
-
                 Log.i("TEST", planetEntities.toString());
                 startSearchResult(planetEntities);
             }
@@ -186,7 +204,15 @@ public class SearchNew extends AppCompatActivity {
     }
 
     /**
-     * Open SearchResult activity
+     * Open SearchResult activity and send search information ahead
+     * All searches (and the results they contain) are sent here first.
+     * We then pass the results to SearchResult activity.
+     * This is because we can populate SearchResult with the results of any search filter.
+     *
+     * Search filter: i.e. distance, how hot the star is, etc.
+     *
+     * We bundle all the search results into a parcelable array to send to SearchResult.
+     * This allows this method to be called whenever a search is submitted, regardless of search filters/parameters.
      */
     public void startSearchResult(List<PlanetEntity> planetEntities) {
         Intent intent = new Intent(this, SearchResult.class);

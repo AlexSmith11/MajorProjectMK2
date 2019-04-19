@@ -11,13 +11,8 @@ import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 
 /**
  * DAO for planets
- * Create new DAO in future for 3rd table for better normalisation
  *
- * Use JOIN keyword to get a record
- *
- * Don't want to use Insert if 3rd table used
- *
- * Use LiveData to be notified of the query for names
+ * Use LiveData to be notified of any queries
  *
  * CAN USE JUNIT FOR DAO TESTING
  */

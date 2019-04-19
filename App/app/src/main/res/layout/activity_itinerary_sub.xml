@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.itineraryadapter.ItinerarySub">
+    tools:context=".ui.planetitineraryadapter.ItinerarySub">
 
 </android.support.constraint.ConstraintLayout>

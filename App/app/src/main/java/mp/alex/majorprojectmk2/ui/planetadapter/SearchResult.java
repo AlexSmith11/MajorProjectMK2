@@ -29,6 +29,8 @@ import mp.alex.majorprojectmk2.ui.SearchNew;
 /**
  * Displays All Current Itineraries in RecyclerView
  *
+ * This activity just displays the search results sent from SearchNew activity.
+ * This allows us to receive and display any results sent, regardless of search filters/parameters.
  */
 public class SearchResult extends AppCompatActivity {
     public static final String PLANET_RESULT_KEY = "planet_result";

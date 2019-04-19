@@ -10,8 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
- * Model for the planet database.
- * Stores all ~100 columns, 4000 rows of info
+ * Entity for the planet database.
+ * Stores all ~100 columns, ~4000 rows of info
  *
  * Planets have one-to-many relations (one planet can be assigned to many itineraries)
  */
@@ -19,13 +19,12 @@ import android.support.annotation.Nullable;
 @Entity(tableName = "planet_table")
 public class PlanetEntity implements Parcelable {
 
-    //This sucks, but need all the variables (at least, the large majority).
-
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    String name, planet_status;
+    // region Variables
 
+    String name, planet_status;
     double mass, mass_error_min, mass_error_max, mass_sini, mass_sini_error_min, mass_sini_error_max, radius, radius_error_min, radius_error_max, orbital_period, orbital_period_error_min, orbital_period_error_max, semi_major_axis, semi_major_axis_error_min, semi_major_axis_error_max, eccentricity, eccentricity_error_min, eccentricity_error_max, inclination, inclination_error_min, inclination_error_max, angular_distance, discovered;
     String updated;
     double omega, omega_error_min, omega_error_max, tperi, tperi_error_min, tperi_error_max, tconj, tconj_error_min, tconj_error_max, tzero_tr, tzero_tr_error_min, tzero_tr_error_max, tzero_tr_sec, tzero_tr_sec_error_min, tzero_tr_sec_error_max, lambda_angle, lambda_angle_error_min, lambda_angle_error_max, impact_parameter, impact_parameter_error_min, impact_parameter_error_max, tzero_vr, tzero_vr_error_min, tzero_vr_error_max, k, k_error_min, k_error_max, temp_calculated, temp_calculated_error_min, temp_calculated_error_max, temp_measured, hot_point_lon, geometric_albedo, geometric_albedo_error_min, geometric_albedo_error_max, log_g;
@@ -34,6 +33,8 @@ public class PlanetEntity implements Parcelable {
     String star_sp_type;
     double star_age, star_teff;
     String star_alternate_names;
+
+    // endregion
 
     // region Constructors
 

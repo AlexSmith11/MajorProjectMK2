@@ -50,13 +50,12 @@ public class MyRepository {
      * This is just the planet name, not the whole row of data needed for calculations.
      * @return
      */
-
     LiveData<List<PlanetEntity>> getAllPlanets() {
         return mAllPlanets;
     }
 
     /**
-     * Returns cached ver of all planet names and calculation data that match search criteria (star_dist < distance)
+     * Returns ver of all planets that match search criteria (star_dist < distance)
      * @return
      */
     LiveData<List<PlanetEntity>> getAllPlanetsLessThanDistance(double distance) {
@@ -65,6 +64,7 @@ public class MyRepository {
 
     /**
      * Returns cached planetItineraries as livedata to use on separate thread.
+     * Adds planets to itineraries.
      * @return
      */
     LiveData<List<PlanetItinerary>> getAllPlanetItineraries() {
@@ -83,7 +83,7 @@ public class MyRepository {
     }
 
     /**
-     * Planet table insert. typically wont be used
+     * Planet table insert. Won't be used unless specified by client.
      * Use async task to call insert on a thread that isn't using UI.
      * Stops app from crashing.
      * @param planetEntity

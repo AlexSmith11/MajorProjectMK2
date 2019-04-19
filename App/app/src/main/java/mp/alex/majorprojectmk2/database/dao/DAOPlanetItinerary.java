@@ -21,6 +21,8 @@ public interface DAOPlanetItinerary {
     @Insert
     void insert(PlanetItinerary planetItinerary);
 
+    //want an inner join
+
     @Query("DELETE FROM planet_itinerary_table")
     void deleteAll();
 

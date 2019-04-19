@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.itineraryadapter.ItineraryMain" />
-        <activity android:name=".ui.itineraryadapter.ItinerarySub" />
+        <activity android:name=".ui.planetitineraryadapter.ItinerarySub" />
         <activity android:name=".ui.ItineraryCreate" />
         <activity android:name=".ui.planetadapter.SearchResult" />
         <activity android:name=".ui.SearchNew"></activity>
