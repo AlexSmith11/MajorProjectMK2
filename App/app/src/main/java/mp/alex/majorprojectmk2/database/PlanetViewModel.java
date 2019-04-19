@@ -21,16 +21,16 @@ public class PlanetViewModel extends AndroidViewModel {
 
     private MyRepository myRepository;
 
-    private double distance;
+    private double distance = 0d;
     private LiveData<List<PlanetEntity>> mAllPlanets;
     private LiveData<List<PlanetEntity>> mAllPlanetsLessThanDist;
 
     public PlanetViewModel(Application application) {
         super(application);
         myRepository = new MyRepository(application);
+
         mAllPlanets = myRepository.getAllPlanets();     //This is just the name. Call other method for
         mAllPlanetsLessThanDist = myRepository.getAllPlanetsLessThanDistance(distance);
-
     }
 
     //------------------------------------- Database Methods ---------------------------------------
@@ -42,6 +42,11 @@ public class PlanetViewModel extends AndroidViewModel {
 
     //Get all planet names with calc data.
     public LiveData<List<PlanetEntity>> getAllPlanetsLessThanDist(double distance) {
+        if (this.distance == distance) {
+            return mAllPlanetsLessThanDist;
+        }
+        this.distance = distance;
+        mAllPlanetsLessThanDist = myRepository.getAllPlanetsLessThanDistance(distance);
         return mAllPlanetsLessThanDist;
     }
 }

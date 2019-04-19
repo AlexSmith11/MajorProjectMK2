@@ -2,7 +2,12 @@ package mp.alex.majorprojectmk2.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +17,16 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import mp.alex.majorprojectmk2.R;
+import mp.alex.majorprojectmk2.database.PlanetViewModel;
+import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.ui.planetadapter.SearchResult;
 
 /**
@@ -23,12 +35,15 @@ import mp.alex.majorprojectmk2.ui.planetadapter.SearchResult;
 
 public class SearchNew extends AppCompatActivity {
 
-    public static String leaveSeconds, arrivalSeconds;
     double leaveDay, leaveMonth, leaveYear, arrivalDay, arrivalMonth, arrivalYear;
+
+    public double distance;
 
     private TextView activeDateDisplay, leaveDateTextView, arrivalDateTextView;
     private Button leaveDateButton, arrivalDateButton, searchButton;
-    private Calendar activeDate, leaveDate, arrivalDate;
+    private Calendar activeDate, leaveCalendar, arrivalCalendar;
+
+    private PlanetViewModel planetViewModel;
 
     static final int DATE_DIALOG_ID = 0;
 
@@ -44,17 +59,19 @@ public class SearchNew extends AppCompatActivity {
             }
         });
 
+        planetViewModel = ViewModelProviders.of(this).get(PlanetViewModel.class);
+
         // capture our View elements for the leave date function
         leaveDateTextView = (TextView) findViewById(R.id.leaveDate);
         leaveDateButton = (Button) findViewById(R.id.buttonLeaveDate);
 
         // Get the current date to display
-        leaveDate = Calendar.getInstance();
+        leaveCalendar = Calendar.getInstance();
 
         // Add a click listener to the button
         leaveDateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDateDialog(leaveDateTextView, leaveDate);
+                showDateDialog(leaveDateTextView, leaveCalendar);
             }
         });
 
@@ -63,31 +80,27 @@ public class SearchNew extends AppCompatActivity {
         arrivalDateButton = (Button) findViewById(R.id.buttonArrivalDate);
 
         // Get the current date to display
-        arrivalDate = Calendar.getInstance();
+        arrivalCalendar = Calendar.getInstance();
 
         // Add a click listener to the button
         arrivalDateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showDateDialog(arrivalDateTextView, arrivalDate);
+                showDateDialog(arrivalDateTextView, arrivalCalendar);
             }
         });
 
         // Display the current date (this method is below)
-        updateDisplay(leaveDateTextView, leaveDate);
-        updateDisplay(arrivalDateTextView, arrivalDate);
+        updateDisplay(leaveDateTextView, leaveCalendar);
+        updateDisplay(arrivalDateTextView, arrivalCalendar);
     }
 
-    public void updateDisplay(TextView dateDisplay, Calendar date) {
+    public void updateDisplay(TextView dateDisplay, Calendar calendar) {
         dateDisplay.setText(
                 new StringBuilder()
                         // Month is 0 based so add 1
-                        .append(date.get(Calendar.DAY_OF_MONTH)).append("/")
-                        .append(date.get(Calendar.MONTH) + 1).append("/")
-                        .append(date.get(Calendar.YEAR)));
-
-        //Set leaveSeconds and arrivalSeconds to be passed to search result
-        leaveSeconds = (leaveDateTextView.getText()).toString();
-        arrivalSeconds = (arrivalDateTextView.getText()).toString();
+                        .append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                        .append(calendar.get(Calendar.MONTH) + 1).append("/")
+                        .append(calendar.get(Calendar.YEAR)));
     }
 
     public void showDateDialog(TextView dateDisplay, Calendar date) {
@@ -144,44 +157,44 @@ public class SearchNew extends AppCompatActivity {
      * Error: Need to add additional parameter for if statements to make sure they aren't the same date or arrival is not before leaving
      */
     public void searchEvent() {
-        if(leaveSeconds != null && !leaveSeconds.isEmpty()) {
-            if(arrivalSeconds != null && !arrivalSeconds.isEmpty()) {
-                //if (leaveSeconds.equals(arrivalDate)) {}
-                startSearchResult();
+        Date arrivalDate = arrivalCalendar.getTime();
+        Date leavingDate = leaveCalendar.getTime();
 
-            } else {
-                Toast.makeText(getApplicationContext(),
-                        "Please select an arrival time",
-                        Toast.LENGTH_SHORT).show();
+        long arrivalMilli = arrivalDate.getTime();
+        long leavingMilli = leavingDate.getTime();
+
+        long diffSeconds = Math.abs(arrivalMilli - leavingMilli) / 1000;
+
+        Log.i("TEST", String.valueOf(diffSeconds));
+
+        double distance = (diffSeconds*296794533.42) / 3.086e+16;
+
+        Log.i("TEST", String.valueOf(diffSeconds));
+
+        LiveData<List<PlanetEntity>> planets = planetViewModel.getAllPlanetsLessThanDist(distance);
+        planets.observe(this, new Observer<List<PlanetEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<PlanetEntity> planetEntities) {
+                if (planetEntities == null) {
+                    return;
+                }
+
+                Log.i("TEST", planetEntities.toString());
+                startSearchResult(planetEntities);
             }
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    "Please select a leaving time",
-                    Toast.LENGTH_SHORT).show();
-        }
+        });
     }
 
     /**
      * Open SearchResult activity
      */
-    public void startSearchResult() {
+    public void startSearchResult(List<PlanetEntity> planetEntities) {
         Intent intent = new Intent(this, SearchResult.class);
+
+        Bundle extras = new Bundle();
+        extras.putParcelableArrayList(SearchResult.PLANET_RESULT_KEY, new ArrayList<>(planetEntities));
+        intent.putExtras(extras);
+
         startActivity(intent);
-    }
-
-    public String getLeaveSeconds() {
-        return leaveSeconds;
-    }
-
-    public String getArrivalSeconds() {
-        return arrivalSeconds;
-    }
-
-    public static void setLeaveSeconds(String leaveSeconds) {
-        SearchNew.leaveSeconds = leaveSeconds;
-    }
-
-    public static void setArrivalSeconds(String arrivalSeconds) {
-        SearchNew.arrivalSeconds = arrivalSeconds;
     }
 }

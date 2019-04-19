@@ -17,7 +17,6 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
 
     private final LayoutInflater mInflater;
     private List<PlanetEntity> mPlanetEntity;
-    private List<String> mPlanetEntityNames;
 
     PlanetAdapter(Context context) {
         mInflater = LayoutInflater.from(context);

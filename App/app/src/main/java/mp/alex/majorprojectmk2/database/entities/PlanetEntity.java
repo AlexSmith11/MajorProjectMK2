@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -15,7 +17,7 @@ import android.support.annotation.Nullable;
  */
 
 @Entity(tableName = "planet_table")
-public class PlanetEntity {
+public class PlanetEntity implements Parcelable {
 
     //This sucks, but need all the variables (at least, the large majority).
 
@@ -33,7 +35,7 @@ public class PlanetEntity {
     double star_age, star_teff;
     String star_alternate_names;
 
-    //Constructors
+    // region Constructors
 
     //returns all column info
     //Need to find out how to insert id into sql table without disrupting the order - see the import method. Leave a blank space?
@@ -124,8 +126,98 @@ public class PlanetEntity {
         this.star_alternate_names = star_alternate_names;
     }
 
-    //----------------------------------- Setters & Getters -----------------------------------
-    //*****************************************Getters*****************************************
+    @Ignore
+    protected PlanetEntity(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        planet_status = in.readString();
+        mass = in.readDouble();
+        mass_error_min = in.readDouble();
+        mass_error_max = in.readDouble();
+        mass_sini = in.readDouble();
+        mass_sini_error_min = in.readDouble();
+        mass_sini_error_max = in.readDouble();
+        radius = in.readDouble();
+        radius_error_min = in.readDouble();
+        radius_error_max = in.readDouble();
+        orbital_period = in.readDouble();
+        orbital_period_error_min = in.readDouble();
+        orbital_period_error_max = in.readDouble();
+        semi_major_axis = in.readDouble();
+        semi_major_axis_error_min = in.readDouble();
+        semi_major_axis_error_max = in.readDouble();
+        eccentricity = in.readDouble();
+        eccentricity_error_min = in.readDouble();
+        eccentricity_error_max = in.readDouble();
+        inclination = in.readDouble();
+        inclination_error_min = in.readDouble();
+        inclination_error_max = in.readDouble();
+        angular_distance = in.readDouble();
+        discovered = in.readDouble();
+        updated = in.readString();
+        omega = in.readDouble();
+        omega_error_min = in.readDouble();
+        omega_error_max = in.readDouble();
+        tperi = in.readDouble();
+        tperi_error_min = in.readDouble();
+        tperi_error_max = in.readDouble();
+        tconj = in.readDouble();
+        tconj_error_min = in.readDouble();
+        tconj_error_max = in.readDouble();
+        tzero_tr = in.readDouble();
+        tzero_tr_error_min = in.readDouble();
+        tzero_tr_error_max = in.readDouble();
+        tzero_tr_sec = in.readDouble();
+        tzero_tr_sec_error_min = in.readDouble();
+        tzero_tr_sec_error_max = in.readDouble();
+        lambda_angle = in.readDouble();
+        lambda_angle_error_min = in.readDouble();
+        lambda_angle_error_max = in.readDouble();
+        impact_parameter = in.readDouble();
+        impact_parameter_error_min = in.readDouble();
+        impact_parameter_error_max = in.readDouble();
+        tzero_vr = in.readDouble();
+        tzero_vr_error_min = in.readDouble();
+        tzero_vr_error_max = in.readDouble();
+        k = in.readDouble();
+        k_error_min = in.readDouble();
+        k_error_max = in.readDouble();
+        temp_calculated = in.readDouble();
+        temp_calculated_error_min = in.readDouble();
+        temp_calculated_error_max = in.readDouble();
+        temp_measured = in.readDouble();
+        hot_point_lon = in.readDouble();
+        geometric_albedo = in.readDouble();
+        geometric_albedo_error_min = in.readDouble();
+        geometric_albedo_error_max = in.readDouble();
+        log_g = in.readDouble();
+        publication = in.readString();
+        detection_type = in.readString();
+        mass_detection_type = in.readString();
+        radius_detection_type = in.readString();
+        alternate_names = in.readString();
+        molecules = in.readString();
+        star_name = in.readString();
+        ra = in.readDouble();
+        dec = in.readDouble();
+        mag_v = in.readDouble();
+        mag_i = in.readDouble();
+        mag_j = in.readDouble();
+        mag_h = in.readDouble();
+        mag_k = in.readDouble();
+        star_distance = in.readDouble();
+        star_metallicity = in.readDouble();
+        star_mass = in.readDouble();
+        star_radius = in.readDouble();
+        star_sp_type = in.readString();
+        star_age = in.readDouble();
+        star_teff = in.readDouble();
+        star_alternate_names = in.readString();
+    }
+
+    // endregion
+
+    // region Setters and Getters
 
     public int getIdPlanet() {
         return this.id;
@@ -467,8 +559,6 @@ public class PlanetEntity {
         return this.star_alternate_names;
     }
 
-    //*******************************************Setters***************************************
-
     public void setId(int id) {
         this.id = id;
     }
@@ -808,4 +898,117 @@ public class PlanetEntity {
     public void setStar_alternate_names(String star_alternate_names) {
         this.star_alternate_names = star_alternate_names;
     }
+
+    // endregion
+
+    // region Parcelable
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(planet_status);
+        dest.writeDouble(mass);
+        dest.writeDouble(mass_error_min);
+        dest.writeDouble(mass_error_max);
+        dest.writeDouble(mass_sini);
+        dest.writeDouble(mass_sini_error_min);
+        dest.writeDouble(mass_sini_error_max);
+        dest.writeDouble(radius);
+        dest.writeDouble(radius_error_min);
+        dest.writeDouble(radius_error_max);
+        dest.writeDouble(orbital_period);
+        dest.writeDouble(orbital_period_error_min);
+        dest.writeDouble(orbital_period_error_max);
+        dest.writeDouble(semi_major_axis);
+        dest.writeDouble(semi_major_axis_error_min);
+        dest.writeDouble(semi_major_axis_error_max);
+        dest.writeDouble(eccentricity);
+        dest.writeDouble(eccentricity_error_min);
+        dest.writeDouble(eccentricity_error_max);
+        dest.writeDouble(inclination);
+        dest.writeDouble(inclination_error_min);
+        dest.writeDouble(inclination_error_max);
+        dest.writeDouble(angular_distance);
+        dest.writeDouble(discovered);
+        dest.writeString(updated);
+        dest.writeDouble(omega);
+        dest.writeDouble(omega_error_min);
+        dest.writeDouble(omega_error_max);
+        dest.writeDouble(tperi);
+        dest.writeDouble(tperi_error_min);
+        dest.writeDouble(tperi_error_max);
+        dest.writeDouble(tconj);
+        dest.writeDouble(tconj_error_min);
+        dest.writeDouble(tconj_error_max);
+        dest.writeDouble(tzero_tr);
+        dest.writeDouble(tzero_tr_error_min);
+        dest.writeDouble(tzero_tr_error_max);
+        dest.writeDouble(tzero_tr_sec);
+        dest.writeDouble(tzero_tr_sec_error_min);
+        dest.writeDouble(tzero_tr_sec_error_max);
+        dest.writeDouble(lambda_angle);
+        dest.writeDouble(lambda_angle_error_min);
+        dest.writeDouble(lambda_angle_error_max);
+        dest.writeDouble(impact_parameter);
+        dest.writeDouble(impact_parameter_error_min);
+        dest.writeDouble(impact_parameter_error_max);
+        dest.writeDouble(tzero_vr);
+        dest.writeDouble(tzero_vr_error_min);
+        dest.writeDouble(tzero_vr_error_max);
+        dest.writeDouble(k);
+        dest.writeDouble(k_error_min);
+        dest.writeDouble(k_error_max);
+        dest.writeDouble(temp_calculated);
+        dest.writeDouble(temp_calculated_error_min);
+        dest.writeDouble(temp_calculated_error_max);
+        dest.writeDouble(temp_measured);
+        dest.writeDouble(hot_point_lon);
+        dest.writeDouble(geometric_albedo);
+        dest.writeDouble(geometric_albedo_error_min);
+        dest.writeDouble(geometric_albedo_error_max);
+        dest.writeDouble(log_g);
+        dest.writeString(publication);
+        dest.writeString(detection_type);
+        dest.writeString(mass_detection_type);
+        dest.writeString(radius_detection_type);
+        dest.writeString(alternate_names);
+        dest.writeString(molecules);
+        dest.writeString(star_name);
+        dest.writeDouble(ra);
+        dest.writeDouble(dec);
+        dest.writeDouble(mag_v);
+        dest.writeDouble(mag_i);
+        dest.writeDouble(mag_j);
+        dest.writeDouble(mag_h);
+        dest.writeDouble(mag_k);
+        dest.writeDouble(star_distance);
+        dest.writeDouble(star_metallicity);
+        dest.writeDouble(star_mass);
+        dest.writeDouble(star_radius);
+        dest.writeString(star_sp_type);
+        dest.writeDouble(star_age);
+        dest.writeDouble(star_teff);
+        dest.writeString(star_alternate_names);
+    }
+
+    public static final Creator<PlanetEntity> CREATOR = new Creator<PlanetEntity>() {
+        @Override
+        public PlanetEntity createFromParcel(Parcel in) {
+            return new PlanetEntity(in);
+        }
+
+        @Override
+        public PlanetEntity[] newArray(int size) {
+            return new PlanetEntity[size];
+        }
+    };
+
+    // endregion
 }

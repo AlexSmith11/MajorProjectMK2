@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import mp.alex.majorprojectmk2.R;
@@ -25,18 +31,7 @@ import mp.alex.majorprojectmk2.ui.SearchNew;
  *
  */
 public class SearchResult extends AppCompatActivity {
-
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE =1;
-
-    private PlanetViewModel mPlanetViewModel;
-    private double distance;
-
-    private static final String TAG = "SearchResult";
-
-    TextView testGetLeaveDate, testGetArriveDate;
-    String StringTestGetLeaveDate, StringTestGetArriveDate;
-
-    Context context;
+    public static final String PLANET_RESULT_KEY = "planet_result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,29 +43,11 @@ public class SearchResult extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        /*
-        UI talks only to ViewModels. These persist when activity is destroyed so can keep info
-        For whenever someone returns.
-        */
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey(PLANET_RESULT_KEY)) {
+            ArrayList<PlanetEntity> planets = extras.getParcelableArrayList(PLANET_RESULT_KEY);
+            adapter.setPlanetNameCalc(planets);
+        }
 
-        mPlanetViewModel = ViewModelProviders.of(this).get(PlanetViewModel.class);
-
-        //For planet name
-        mPlanetViewModel.getAllPlanets().observe(this, new Observer<List<PlanetEntity>>() {
-            @Override
-            public void onChanged(@Nullable final List<PlanetEntity> planetEntities) {
-                //Update cached ver of Itineraries in adapter
-                adapter.setPlanetNameCalc(planetEntities);
-            }
-        });
-
-        //For planet name and calculation data
-        mPlanetViewModel.getAllPlanetsLessThanDist(distance).observe(this, new Observer<List<PlanetEntity>>() {
-            @Override
-            public void onChanged(@Nullable final List<PlanetEntity> planetEntities) {
-                //Update cached ver of Itineraries in adapter
-                adapter.setPlanetNameCalc(planetEntities);
-            }
-        });
     }
 }

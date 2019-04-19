@@ -20,10 +20,8 @@ public class MyRepository {
 
     private LiveData<List<ItineraryListEntity>> mAllItineraries;
     private LiveData<List<PlanetEntity>> mAllPlanets;
-    private LiveData<List<PlanetEntity>> mAllPlanetsLessThan;
     private LiveData<List<PlanetItinerary>> mAllPlanetItineraries;
 
-    private double distance;
 
     //Constructor that gets handle to db & initialises the member variables
     MyRepository(Application application) {
@@ -35,7 +33,6 @@ public class MyRepository {
 
         mAllItineraries = mDAOItineraries.getItineraryListNames();
         mAllPlanets = mDAOPlanets.searchAllPlanets();
-        mAllPlanetsLessThan = mDAOPlanets.searchDistanceLessThan(distance);
         mAllPlanetItineraries = mDAOPlanetItineraries.getPlanetItineraryIds();
     }
 
@@ -63,7 +60,7 @@ public class MyRepository {
      * @return
      */
     LiveData<List<PlanetEntity>> getAllPlanetsLessThanDistance(double distance) {
-        return mAllPlanetsLessThan;
+        return mDAOPlanets.searchDistanceLessThan(distance);
     }
 
     /**
