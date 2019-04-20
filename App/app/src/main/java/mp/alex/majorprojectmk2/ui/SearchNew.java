@@ -6,7 +6,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,13 +31,14 @@ import mp.alex.majorprojectmk2.ui.planetadapter.SearchResult;
  * Can add more as addition features.
  *
  * Also implements date picker (calendar view).
- * 
+ *
  * NOTE: CHECK IF ARRIVAL DATE IS LESS THEN LEAVE DATE. IF SO, ASK AGAIN
+ *
+ * Search Process:
+ * PlanetEntity -> DAOPlanets -> MyRepository -> PlanetViewModel -> PlanetAdapter -> SearchNew -> SearchResult
  */
 
 public class SearchNew extends AppCompatActivity {
-
-    public double distance;
 
     private TextView activeDateDisplay, leaveDateTextView, arrivalDateTextView;
     private Button leaveDateButton, arrivalDateButton, searchButton;
@@ -59,7 +56,7 @@ public class SearchNew extends AppCompatActivity {
             //Only search if both values have ben set
             @Override
             public void onClick(View v) {
-                searchEvent();
+                searchEventDistance();
             }
         });
 
@@ -163,10 +160,15 @@ public class SearchNew extends AppCompatActivity {
      *
      * Error: Need to add additional parameter for if statements to make sure they aren't the same date or arrival is not before leaving
      */
-    public void searchEvent() {
+    public void searchEventDistance() {
+        //Create Date objects to store calendar date data created by the date picker.
         Date arrivalDate = arrivalCalendar.getTime();
         Date leavingDate = leaveCalendar.getTime();
 
+        /*
+        getTime gives us the time in milliseconds since 1970.
+        Note: need to make sure time before 1970 is not picked, and can pick a time after year 2100.
+        */
         long arrivalMilli = arrivalDate.getTime();
         long leavingMilli = leavingDate.getTime();
 

@@ -13,6 +13,10 @@ import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
 
+/**
+ * Create a new Itinerary.
+ * Does not display any itinerary.
+ */
 public class ItineraryCreate extends AppCompatActivity {
 
     public static final String EXTRA_REPLY = "mp.alex.majorprojectmk2.ui.REPLY";

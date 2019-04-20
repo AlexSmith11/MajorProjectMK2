@@ -29,8 +29,10 @@ public class PlanetViewModel extends AndroidViewModel {
         super(application);
         myRepository = new MyRepository(application);
 
-        mAllPlanets = myRepository.getAllPlanets();     //For just planet names
-        mAllPlanetsLessThanDist = myRepository.getAllPlanetsLessThanDistance(distance);     //For all planet data less than set distance
+        //For just planet names
+        mAllPlanets = myRepository.getAllPlanets();
+        //For all planet data less than set distance
+        mAllPlanetsLessThanDist = myRepository.getAllPlanetsLessThanDistance(distance);
     }
 
     //------------------------------------- Database Methods ---------------------------------------

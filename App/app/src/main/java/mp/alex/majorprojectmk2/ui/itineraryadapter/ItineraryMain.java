@@ -22,6 +22,17 @@ import mp.alex.majorprojectmk2.ui.ItineraryCreate;
 
 /**
  * Displays All Current Itineraries in RecyclerView
+ * Passes information from PlanetItineraryEntity to ItinerarySub which displays individual itineraries
+ *
+ * Display process for itineraries:
+ * ItineraryListEntity -> DAOItineraries -> MyRepository -> ItineraryViewModel -> ItineraryMainAdapter ->
+ * -> ItineraryMain -> ItinerarySub
+ *
+ * Display process for ItinerarySub:
+ * PlanetItinerary -> DAOPlanetItinerary -> MyRepository ->
+ *
+ * How to assign planet to itinerary:
+ * Call inner join in DAOPlanetItinerary
  */
 public class ItineraryMain extends AppCompatActivity {
 
