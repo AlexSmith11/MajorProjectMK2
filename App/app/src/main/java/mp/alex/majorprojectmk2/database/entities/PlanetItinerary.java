@@ -7,6 +7,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 /**
  * The two id's in this table are composite keys.
  * To make these they must be declared as both FK's and PK's.
@@ -20,7 +22,8 @@ import android.support.annotation.NonNull;
         foreignKeys = {
         @ForeignKey(entity = ItineraryListEntity.class,
                 parentColumns = "id",
-                childColumns = "pi_itinerary_id"
+                childColumns = "pi_itinerary_id",
+                onDelete = CASCADE          //When itinerary is deleted, its planets are too.
         ),
         @ForeignKey(entity = PlanetEntity.class,
                 parentColumns = "id",
@@ -30,25 +33,25 @@ import android.support.annotation.NonNull;
 public class PlanetItinerary {
     @NonNull
     @ColumnInfo(name = "pi_itinerary_id")
-    public String mItineraryId;
+    public int mItineraryId;
 
     @NonNull
     @ColumnInfo(name = "pi_planet_id")
-    public String mPlanetId;
+    public int mPlanetId;
 
     //Constructor
-    public PlanetItinerary(String mItineraryId, String mPlanetId) {
+    public PlanetItinerary(int mItineraryId, int mPlanetId) {
         this.mItineraryId = mItineraryId;
         this.mPlanetId = mPlanetId;
     }
 
-    //----------------------------------- Setters & Getters -----------------------------------
+    // region Getters and Setters
 
-    public String getItineraryId() {
+    public int getItineraryId() {
         return this.mItineraryId;
     }
 
-    public String getPlanetId() {
+    public int getPlanetId() {
         return this.mPlanetId;
     }
 

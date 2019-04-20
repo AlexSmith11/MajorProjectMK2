@@ -16,21 +16,11 @@ public class ItineraryListEntity {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     public int id;
+
+    @ColumnInfo(name = "itineraryListName")
     public String itineraryListName;
 
-    /**
-     * Constructors
-     */
-    //Name and id
-    /*
-    @Ignore
-    public ItineraryListEntity(int id, String itineraryListName) {
-        this.id = id;
-        this.itineraryListName = itineraryListName;
-    }
-    */
-
-    //Just name
+    //Constructor
     public ItineraryListEntity(String itineraryListName) {
         this.itineraryListName = itineraryListName;
     }

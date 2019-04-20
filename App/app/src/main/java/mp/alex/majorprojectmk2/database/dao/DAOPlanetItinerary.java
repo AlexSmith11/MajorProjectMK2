@@ -23,25 +23,9 @@ public interface DAOPlanetItinerary {
 
     //want an inner join
 
-    @Query("DELETE FROM planet_itinerary_table")
-    void deleteAll();
+    @Query("SELECT * FROM planet_table INNER JOIN planet_itinerary_table pi ON" +
+            " planet_table.id = pi.pi_planet_id WHERE pi.pi_itinerary_id = :itineraryId")
+    LiveData<List<PlanetItinerary>> getPlanetsForItineraries(final int itineraryId);
 
-    @Query("SELECT * from planet_itinerary_table ORDER BY pi_itinerary_id ASC")
-    LiveData<List<PlanetItinerary>> getPlanetItineraryIds();
-
-    /*
-    @Query("SELECT * FROM itinerary_table INNER JOIN planet_itinerary_table ON" +
-            " itinerary_table.id = planet_itinerary_table.pi_itinerary_id WHERE" +
-            " planet_itinerary_table.pi_planet_id=:planetId")
-    List<ItineraryListEntity> getItinerariesForPlanets(final int planetId);
-    */
-
-    //I believe this is the correct query (or closer to being so)
-    /*
-    @Query("SELECT * FROM planet_table INNER JOIN planet_itinerary_table ON" +
-            " planet_table.id = planet_itinerary_table.pi_planet_id WHERE" +
-            " planet_itinerary_table.pi_itinerary_id=:itineraryId")
-    List<PlanetEntity> getPlanetsForItineraries(final int itineraryId);
-    */
 
 }

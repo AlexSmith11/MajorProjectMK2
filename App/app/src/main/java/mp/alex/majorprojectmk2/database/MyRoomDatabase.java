@@ -32,7 +32,7 @@ import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 /**
  * I use a Room Database as it adds a high amount of abstraction to my code.
  */
-@Database(entities = {ItineraryListEntity.class, PlanetEntity.class, PlanetItinerary.class}, version = 8, exportSchema = false)
+@Database(entities = {ItineraryListEntity.class, PlanetEntity.class, PlanetItinerary.class}, version = 9, exportSchema = false)
 public abstract class MyRoomDatabase extends RoomDatabase {
     private static final String TAG = "RoomDatabase";
     private static final String DATABASE_NAME = "app_database";

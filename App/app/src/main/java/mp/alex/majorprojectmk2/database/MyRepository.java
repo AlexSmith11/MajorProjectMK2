@@ -22,6 +22,7 @@ public class MyRepository {
     private LiveData<List<PlanetEntity>> mAllPlanets;
     private LiveData<List<PlanetItinerary>> mAllPlanetItineraries;
 
+    private int itineraryId;
 
     //Constructor that gets handle to db & initialises the member variables
     MyRepository(Application application) {
@@ -33,7 +34,7 @@ public class MyRepository {
 
         mAllItineraries = mDAOItineraries.getItineraryListNames();
         mAllPlanets = mDAOPlanets.searchAllPlanets();
-        mAllPlanetItineraries = mDAOPlanetItineraries.getPlanetItineraryIds();
+        //mAllPlanetItineraries = mDAOPlanetItineraries.getPlanetsForItineraries(itineraryId);
     }
 
     //Add data to LiveData threads
@@ -123,7 +124,7 @@ public class MyRepository {
     //Insert
     /**
      * Insert
-     * Uses AsyncTask to make sure we're using seperate threads when we interact with our DB
+     * Uses AsyncTask to make sure we're using separate threads when we interact with our DB
      */
     private static class insertItineraryAsyncTask extends AsyncTask<ItineraryListEntity, Void, Void> {
         private DAOItineraries mAsyncTaskDao;

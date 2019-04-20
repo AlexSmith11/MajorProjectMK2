@@ -19,10 +19,10 @@ import android.support.annotation.Nullable;
 @Entity(tableName = "planet_table")
 public class PlanetEntity implements Parcelable {
 
+    // region Variables
+
     @PrimaryKey(autoGenerate = true)
     public int id;
-
-    // region Variables
 
     String name, planet_status;
     double mass, mass_error_min, mass_error_max, mass_sini, mass_sini_error_min, mass_sini_error_max, radius, radius_error_min, radius_error_max, orbital_period, orbital_period_error_min, orbital_period_error_max, semi_major_axis, semi_major_axis_error_min, semi_major_axis_error_max, eccentricity, eccentricity_error_min, eccentricity_error_max, inclination, inclination_error_min, inclination_error_max, angular_distance, discovered;

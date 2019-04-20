@@ -10,6 +10,8 @@ import mp.alex.majorprojectmk2.R;
  *
  * Have recycler list populated with data from table 3 based off a search query i.e:
  * all itineraries with id = 4 (itinerary 4). Query sent when itinerary tapped in ItineraryMain.
+ *
+ * Query we want to call: getPlanetsForItineraries
  */
 
 public class ItinerarySub extends AppCompatActivity {
