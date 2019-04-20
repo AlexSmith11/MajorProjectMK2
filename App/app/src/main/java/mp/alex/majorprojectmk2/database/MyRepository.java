@@ -103,6 +103,10 @@ public class MyRepository {
         new insertPlanItinAsyncTask(mDAOPlanetItineraries).execute(planetItinerary);
     }
 
+    public LiveData<List<PlanetEntity>> getPlanetsForItineraries(int itineraryId) {
+        return mDAOPlanetItineraries.getPlanetsForItineraries(itineraryId);
+    }
+
     //------------------------------ Wrappers for the delete methods -------------------------------
 
     /**

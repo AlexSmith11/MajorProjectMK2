@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 
 public class PlanetItineraryViewModel extends AndroidViewModel {
@@ -25,5 +26,9 @@ public class PlanetItineraryViewModel extends AndroidViewModel {
 
     public void insert(PlanetItinerary planetItinerary) {
         myRepository.insert(planetItinerary);
+    }
+
+    public LiveData<List<PlanetEntity>> getPlanetsForItineraries(int itineraryId) {
+        return myRepository.getPlanetsForItineraries(itineraryId);
     }
 }

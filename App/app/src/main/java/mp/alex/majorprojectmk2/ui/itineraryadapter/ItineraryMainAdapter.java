@@ -25,18 +25,10 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
 
     private final LayoutInflater mInflater;
     private List<ItineraryListEntity> mItineraries;
+    private OnClickListener clickListener;
 
     ItineraryMainAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-    }
-
-    class ItineraryViewHolder extends RecyclerView.ViewHolder {
-        private final TextView itineraryItemView;
-
-        private ItineraryViewHolder(View itemView) {
-            super(itemView);
-            itineraryItemView = itemView.findViewById(R.id.textView);
-        }
     }
 
     /**
@@ -65,29 +57,20 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
      *
      * Populates the rows xml with info from the item.
      *
-     * @param holder
+     * @param itineraryViewHolder
      * @param position
      */
     @Override
-    public void onBindViewHolder(ItineraryViewHolder holder, int position) {
+    public void onBindViewHolder(ItineraryViewHolder itineraryViewHolder, int position) {
+        if (clickListener != null) {
+            itineraryViewHolder.setListener(clickListener);
+        }
         if(mItineraries != null) {
             ItineraryListEntity current = mItineraries.get(position);
-            holder.itineraryItemView.setText(current.getItineraryListName());
+            itineraryViewHolder.itineraryItemView.setText(current.getItineraryListName());
         } else {
-            holder.itineraryItemView.setText("No Itinerary");
+            itineraryViewHolder.itineraryItemView.setText("No Itinerary");
         }
-    }
-
-    void setItineraries(List<ItineraryListEntity> itineraries) {
-        mItineraries = itineraries;
-        notifyDataSetChanged();
-    }
-
-    /**
-     * Gets position of a word so we can modify/delete specific ones (swipe/hold ability)
-     */
-    ItineraryListEntity getItineraryAtPosition(int position) {
-        return mItineraries.get(position);
     }
 
     /**
@@ -100,4 +83,60 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
             return mItineraries.size();
         else return 0;
     }
+
+    /**
+     * Gets position of a word so we can modify/delete specific ones (swipe/hold ability)
+     */
+    ItineraryListEntity getItineraryAtPosition(int position) {
+        return mItineraries.get(position);
+    }
+
+    void setItineraries(List<ItineraryListEntity> itineraries) {
+        mItineraries = itineraries;
+        notifyDataSetChanged();
+    }
+
+    class ItineraryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView itineraryItemView;
+        private OnClickListener listener;
+
+        private ItineraryViewHolder(View itemView) {
+            super(itemView);
+            itineraryItemView = itemView.findViewById(R.id.textView);
+            itineraryItemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (listener != null) {
+                listener.onItemClick(getAdapterPosition(), v);
+            }
+        }
+
+        public void setListener(OnClickListener listener) {
+            this.listener = listener;
+        }
+    }
+
+    public void setClickListener(OnClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public List<ItineraryListEntity> getItineraryListEntity() {
+        return mItineraries;
+    }
+
+    public interface OnClickListener {
+        void onItemClick(int position, View v);
+    }
+
+
+
+
+
+
+
+
+
+
 }

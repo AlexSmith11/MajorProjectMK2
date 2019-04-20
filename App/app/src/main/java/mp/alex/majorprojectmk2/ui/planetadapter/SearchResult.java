@@ -40,6 +40,8 @@ import mp.alex.majorprojectmk2.ui.SearchNew;
  *
  * This activity just displays the search results sent from SearchNew activity.
  * This allows us to receive and display any results sent, regardless of search filters/parameters.
+ *
+ * This clas handles the onclick
  */
 public class SearchResult extends AppCompatActivity {
     public static final String PLANET_RESULT_KEY = "planet_result";
@@ -60,13 +62,14 @@ public class SearchResult extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        //Receive parcelable
         Bundle extras = getIntent().getExtras();
         ArrayList<PlanetEntity> planets = new ArrayList<>();
         if (extras != null && extras.containsKey(PLANET_RESULT_KEY)) {
             planets = extras.getParcelableArrayList(PLANET_RESULT_KEY);
         }
         adapter.setPlanetNameCalc(planets);
-        
+
         planetItineraryViewModel = ViewModelProviders.of(this).get(PlanetItineraryViewModel.class);
 
         adapter.setClickListener(new PlanetAdapter.OnClickListener() {

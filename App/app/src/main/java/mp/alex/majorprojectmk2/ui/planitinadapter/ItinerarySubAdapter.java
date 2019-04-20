@@ -1,4 +1,4 @@
-package mp.alex.majorprojectmk2.ui.planetadapter;
+package mp.alex.majorprojectmk2.ui.planitinadapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,34 +13,34 @@ import java.util.List;
 import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 
-public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetViewHolder> {
+public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapter.ItinerarySubViewHolder> {
 
     private final LayoutInflater mInflater;
     private List<PlanetEntity> mPlanetEntity;
     private OnClickListener clickListener;
 
 
-    PlanetAdapter(Context context) {
+    ItinerarySubAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItinerarySubViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new PlanetViewHolder(itemView);
+        return new ItinerarySubViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(PlanetViewHolder planetViewHolder, int position) {
+    public void onBindViewHolder(ItinerarySubViewHolder itinerarySubViewHolder, int position) {
         if (clickListener != null) {
-            planetViewHolder.setListener(clickListener);
+            itinerarySubViewHolder.setListener(clickListener);
         }
 
         if(mPlanetEntity != null){
             PlanetEntity current = mPlanetEntity.get(position);
-            planetViewHolder.planetItemView.setText(current.getName());
+            itinerarySubViewHolder.planetItemView.setText(current.getName());
         } else {
-            planetViewHolder.planetItemView.setText("No Planets Found");
+            itinerarySubViewHolder.planetItemView.setText("No Planets Found");
         }
     }
 
@@ -56,11 +56,11 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
         notifyDataSetChanged();
     }
 
-    class PlanetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ItinerarySubViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView planetItemView;
         private OnClickListener listener;
 
-        private PlanetViewHolder(View itemView) {
+        private ItinerarySubViewHolder(View itemView) {
             super(itemView);
             planetItemView = itemView.findViewById(R.id.textView);
             planetItemView.setOnClickListener(this);
