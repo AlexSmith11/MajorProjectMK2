@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -57,8 +58,9 @@ public class SearchResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         final PlanetAdapter adapter = new PlanetAdapter(this);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));  //put physical divider lines in the recycler view
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -69,6 +71,14 @@ public class SearchResult extends AppCompatActivity {
             planets = extras.getParcelableArrayList(PLANET_RESULT_KEY);
         }
         adapter.setPlanetNameCalc(planets);
+
+        if (planets.size() == 0) {
+            Toast.makeText(getApplicationContext(), "No planets exist within set distance",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Planets found: " + planets.size(),
+                    Toast.LENGTH_SHORT).show();
+        }
 
         planetItineraryViewModel = ViewModelProviders.of(this).get(PlanetItineraryViewModel.class);
 
@@ -85,7 +95,7 @@ public class SearchResult extends AppCompatActivity {
                 final List<PlanetEntity> planets = adapter.getPlanetEntity();
 
                 AlertDialog.Builder b = new AlertDialog.Builder(SearchResult.this);
-                b.setTitle("Example");
+                b.setTitle("Itineraries:");
 
                 b.setItems(itinerariesDialogTypes, new DialogInterface.OnClickListener() {
 

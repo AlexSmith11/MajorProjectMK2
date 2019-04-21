@@ -1,14 +1,43 @@
-<LinearLayout xmlns:android=
-    "http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content">
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:columnCount="2"
+    android:paddingBottom="@dimen/row_padding_vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/row_padding_vertical">
 
-    <!-- Implement better layout with line dividers -->
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/planetView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/text_view_style"
-        tools:text="placeholder text" />
-</LinearLayout>
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/starView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1" />
+
+    <TextView
+        android:id="@+id/distanceView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1"/>
+
+    <TextView
+        android:id="@+id/distanceMetersView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1" />
+
+</GridLayout>

@@ -24,11 +24,22 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
         mInflater = LayoutInflater.from(context);
     }
 
+    /*
     @Override
     public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
         return new PlanetViewHolder(itemView);
     }
+    */
+
+
+    @Override
+    public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_item, parent, false);
+        return new PlanetViewHolder(itemView);
+    }
+
 
     @Override
     public void onBindViewHolder(PlanetViewHolder planetViewHolder, int position) {
@@ -39,6 +50,9 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
         if(mPlanetEntity != null){
             PlanetEntity current = mPlanetEntity.get(position);
             planetViewHolder.planetItemView.setText(current.getName());
+            planetViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + " Parsecs");
+            planetViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + " Meters");
+            planetViewHolder.starItemView.setText(current.getStar_name());
         } else {
             planetViewHolder.planetItemView.setText("No Planets Found");
         }
@@ -57,13 +71,16 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
     }
 
     class PlanetViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView planetItemView;
+        private final TextView planetItemView, distanceItemView, distanceMetersItemView, starItemView;
         private OnClickListener listener;
 
         private PlanetViewHolder(View itemView) {
             super(itemView);
-            planetItemView = itemView.findViewById(R.id.textView);
-            planetItemView.setOnClickListener(this);
+            planetItemView = itemView.findViewById(R.id.planetView);
+            distanceItemView = itemView.findViewById(R.id.distanceView);
+            distanceMetersItemView = itemView.findViewById(R.id.distanceMetersView);
+            starItemView = itemView.findViewById(R.id.starView);
+            itemView.setOnClickListener(this);
         }
 
         @Override

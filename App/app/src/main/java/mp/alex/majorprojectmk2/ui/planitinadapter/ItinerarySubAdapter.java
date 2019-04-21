@@ -62,8 +62,8 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
 
         private ItinerarySubViewHolder(View itemView) {
             super(itemView);
-            planetItemView = itemView.findViewById(R.id.textView);
-            planetItemView.setOnClickListener(this);
+            planetItemView = itemView.findViewById(R.id.planetView);
+            itemView.setOnClickListener(this);
         }
 
         @Override

@@ -102,8 +102,8 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
 
         private ItineraryViewHolder(View itemView) {
             super(itemView);
-            itineraryItemView = itemView.findViewById(R.id.textView);
-            itineraryItemView.setOnClickListener(this);
+            itineraryItemView = itemView.findViewById(R.id.planetView);
+            itemView.setOnClickListener(this);
         }
 
         @Override

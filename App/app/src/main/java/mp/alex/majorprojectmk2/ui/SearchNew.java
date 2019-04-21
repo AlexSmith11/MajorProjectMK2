@@ -6,6 +6,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -257,13 +258,14 @@ public class SearchNew extends AppCompatActivity {
      * @return
      */
     private void setUpGraphData(List<PlanetEntity> planets) {
+        //If there are no points to plot, hide the GraphView
         if (planets.size() == 0) {
             graphView.setVisibility(View.GONE);
         } else {
             graphView.setVisibility(View.VISIBLE);
         }
 
-        graphView.removeAllSeries();
+        graphView.removeAllSeries();        //Remove any prior plots on refresh
         DataPoint[] dataPoints = new DataPoint[planets.size()];
         double largestDistance = -1d;
         for (int i = 0; i < planets.size(); i++) {
@@ -276,16 +278,15 @@ public class SearchNew extends AppCompatActivity {
             dataPoints[i] = new DataPoint(currentPlanet.getStar_distance(), i + 1);
         }
 
-
+        //Sets the right edge of the graph to match the rightmost plot point
         graphView.getViewport().setMaxY(planets.size());
         graphView.getViewport().setMaxX(largestDistance);
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
-        series.setDrawDataPoints(true);
-
+        series.setDrawDataPoints(true);     //Draw points
         graphView.addSeries(series);
-
-        
+        series.setDrawBackground(true);     //Colour-in background
+        series.setBackgroundColor(Color.argb(60, 25, 118, 210));
 
         graphView.getViewport().setScalable(true);
         graphView.getViewport().setScalableY(true);
