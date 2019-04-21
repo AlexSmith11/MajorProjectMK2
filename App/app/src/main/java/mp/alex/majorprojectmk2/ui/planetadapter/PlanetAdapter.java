@@ -1,6 +1,7 @@
 package mp.alex.majorprojectmk2.ui.planetadapter;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,20 +19,12 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
     private final LayoutInflater mInflater;
     private List<PlanetEntity> mPlanetEntity;
     private OnClickListener clickListener;
+    private String Meters = " Meters", Parsecs = " Parsecs";
 
 
     PlanetAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
-
-    /*
-    @Override
-    public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new PlanetViewHolder(itemView);
-    }
-    */
-
 
     @Override
     public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,8 +43,8 @@ public class PlanetAdapter extends RecyclerView.Adapter<PlanetAdapter.PlanetView
         if(mPlanetEntity != null){
             PlanetEntity current = mPlanetEntity.get(position);
             planetViewHolder.planetItemView.setText(current.getName());
-            planetViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + " Parsecs");
-            planetViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + " Meters");
+            planetViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + Parsecs);
+            planetViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + Meters);
             planetViewHolder.starItemView.setText(current.getStar_name());
         } else {
             planetViewHolder.planetItemView.setText("No Planets Found");

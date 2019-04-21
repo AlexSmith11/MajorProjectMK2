@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:layout_columnWeight="1"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/distanceView"
@@ -31,10 +31,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
-        android:layout_columnWeight="1" />
+        android:layout_columnWeight="1"/>
 
     <TextView
         android:id="@+id/distanceMetersView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1" />
+    <TextView
+        android:id="@+id/luminosity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1" />
+    <TextView
+        android:id="@+id/whatever"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"

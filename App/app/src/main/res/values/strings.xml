@@ -20,4 +20,8 @@
 
     <!-- Delete all Itineraries -->
     <string name="buttonDeleteAllItineraries">Delete All Itineraries</string>
+
+    <!-- Recycler View item -->
+    <string name="meters">Meters</string>
+    <string name="parsecs">Parsecs</string>
 </resources>

@@ -22,8 +22,7 @@ public interface DAOPlanetItinerary {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PlanetItinerary planetItinerary);
 
-    //want an inner join
-
+    //Inner join to combine planet and itinerary id's
     @Query("SELECT * FROM planet_table INNER JOIN planet_itinerary_table pi ON" +
             " planet_table.id = pi.pi_planet_id WHERE pi.pi_itinerary_id = :itineraryId")
     LiveData<List<PlanetEntity>> getPlanetsForItineraries(int itineraryId);

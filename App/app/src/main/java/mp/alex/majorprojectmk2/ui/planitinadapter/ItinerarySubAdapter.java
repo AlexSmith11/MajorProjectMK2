@@ -18,6 +18,7 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
     private final LayoutInflater mInflater;
     private List<PlanetEntity> mPlanetEntity;
     private OnClickListener clickListener;
+    private String Meters = " Meters", Parsecs = " Parsecs";
 
 
     ItinerarySubAdapter(Context context) {
@@ -36,9 +37,14 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
             itinerarySubViewHolder.setListener(clickListener);
         }
 
+
+
         if(mPlanetEntity != null){
             PlanetEntity current = mPlanetEntity.get(position);
             itinerarySubViewHolder.planetItemView.setText(current.getName());
+            itinerarySubViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + Meters);
+            itinerarySubViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + Parsecs);
+            itinerarySubViewHolder.starItemView.setText(current.getStar_name());
         } else {
             itinerarySubViewHolder.planetItemView.setText("No Planets Found");
         }
@@ -57,12 +63,15 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
     }
 
     class ItinerarySubViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView planetItemView;
+        private final TextView planetItemView, distanceItemView, distanceMetersItemView, starItemView;
         private OnClickListener listener;
 
         private ItinerarySubViewHolder(View itemView) {
             super(itemView);
             planetItemView = itemView.findViewById(R.id.planetView);
+            distanceItemView = itemView.findViewById(R.id.distanceView);
+            distanceMetersItemView = itemView.findViewById(R.id.distanceMetersView);
+            starItemView = itemView.findViewById(R.id.starView);
             itemView.setOnClickListener(this);
         }
 
