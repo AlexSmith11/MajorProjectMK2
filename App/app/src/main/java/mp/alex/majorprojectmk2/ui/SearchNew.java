@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +34,8 @@ import mp.alex.majorprojectmk2.ui.planetadapter.SearchResult;
  * Current search: Less than Distance
  * Can add more as addition features.
  *
- * Also implements date picker (calendar view).
+ * Implements date picker (calendar view) and GraphView library.
+ * For GraphView, make sure you have the dependency implemented as well as a conflict resolver in your gradle build
  *
  * NOTE: CHECK IF ARRIVAL DATE IS LESS THEN LEAVE DATE. IF SO, ASK AGAIN
  *
@@ -43,6 +48,7 @@ public class SearchNew extends AppCompatActivity {
     private TextView activeDateDisplay, leaveDateTextView, arrivalDateTextView;
     private Button leaveDateButton, arrivalDateButton, searchButton;
     private Calendar activeDate, leaveCalendar, arrivalCalendar;
+    private GraphView graphView;
 
     private PlanetViewModel planetViewModel;
 
@@ -56,12 +62,13 @@ public class SearchNew extends AppCompatActivity {
             //Only search if both values have ben set
             @Override
             public void onClick(View v) {
-                searchEventDistance();
+                searchEventDistance(true);
             }
         });
 
         planetViewModel = ViewModelProviders.of(this).get(PlanetViewModel.class);
 
+        //region Create ClickListeners and TextViews, set them with current date
         // capture our View elements for the leave date function
         leaveDateTextView = (TextView) findViewById(R.id.leaveDate);
         leaveDateButton = (Button) findViewById(R.id.buttonLeaveDate);
@@ -89,12 +96,23 @@ public class SearchNew extends AppCompatActivity {
                 showDateDialog(arrivalDateTextView, arrivalCalendar);
             }
         });
+        //endregion
 
         // Display the current date (this method is below)
         updateDisplay(leaveDateTextView, leaveCalendar);
         updateDisplay(arrivalDateTextView, arrivalCalendar);
+
+        //GraphView setup
+        graphView = findViewById(R.id.graphDistance);
+        graphView.getViewport().setYAxisBoundsManual(true);
+        graphView.getViewport().setMinY(0);
+        graphView.getViewport().setXAxisBoundsManual(true);
+        graphView.getViewport().setMinX(0);
+        graphView.getGridLabelRenderer().setVerticalAxisTitle("No. of Planets");
+        graphView.getGridLabelRenderer().setHorizontalAxisTitle("Distance in Parsecs");
     }
 
+    //region Calendar date picker methods
     public void updateDisplay(TextView dateDisplay, Calendar calendar) {
         dateDisplay.setText(
                 new StringBuilder()
@@ -102,6 +120,8 @@ public class SearchNew extends AppCompatActivity {
                         .append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
                         .append(calendar.get(Calendar.MONTH) + 1).append("/")
                         .append(calendar.get(Calendar.YEAR)));
+
+        searchEventDistance(false);
     }
 
     public void showDateDialog(TextView dateDisplay, Calendar date) {
@@ -151,6 +171,7 @@ public class SearchNew extends AppCompatActivity {
                 break;
         }
     }
+    //endregion
 
     /**
      * When search button is pressed
@@ -160,7 +181,7 @@ public class SearchNew extends AppCompatActivity {
      *
      * Error: Need to add additional parameter for if statements to make sure they aren't the same date or arrival is not before leaving
      */
-    public void searchEventDistance() {
+    public void searchEventDistance(final boolean displayData) {
         //Create Date objects to store calendar date data created by the date picker.
         Date arrivalDate = arrivalCalendar.getTime();
         Date leavingDate = leaveCalendar.getTime();
@@ -191,7 +212,6 @@ public class SearchNew extends AppCompatActivity {
         double distance = (diffSeconds*296794533.42) / 3.086e+16;
         Log.i("TEST", String.valueOf(diffSeconds));
 
-
         LiveData<List<PlanetEntity>> planets = planetViewModel.getAllPlanetsLessThanDist(distance);
         planets.observe(this, new Observer<List<PlanetEntity>>() {
             @Override
@@ -200,10 +220,16 @@ public class SearchNew extends AppCompatActivity {
                     return;
                 }
                 Log.i("TEST", planetEntities.toString());
-                startSearchResult(planetEntities);
+
+                if (displayData) {
+                    startSearchResult(planetEntities);
+                    return;
+                }
+                setUpGraphData(planetEntities);
             }
         });
     }
+
 
     /**
      * Open SearchResult activity and send search information ahead
@@ -224,5 +250,46 @@ public class SearchNew extends AppCompatActivity {
         intent.putExtras(extras);
 
         startActivity(intent);
+    }
+
+    /**
+     *
+     * @return
+     */
+    private void setUpGraphData(List<PlanetEntity> planets) {
+        if (planets.size() == 0) {
+            graphView.setVisibility(View.GONE);
+        } else {
+            graphView.setVisibility(View.VISIBLE);
+        }
+
+        graphView.removeAllSeries();
+        DataPoint[] dataPoints = new DataPoint[planets.size()];
+        double largestDistance = -1d;
+        for (int i = 0; i < planets.size(); i++) {
+            PlanetEntity currentPlanet = planets.get(i);
+
+            if (currentPlanet.getStar_distance() > largestDistance) {
+                largestDistance = currentPlanet.getStar_distance();
+            }
+
+            dataPoints[i] = new DataPoint(currentPlanet.getStar_distance(), i + 1);
+        }
+
+
+        graphView.getViewport().setMaxY(planets.size());
+        graphView.getViewport().setMaxX(largestDistance);
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+        series.setDrawDataPoints(true);
+
+        graphView.addSeries(series);
+
+        
+
+        graphView.getViewport().setScalable(true);
+        graphView.getViewport().setScalableY(true);
+
+
     }
 }

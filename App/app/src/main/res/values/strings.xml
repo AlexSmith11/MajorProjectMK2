@@ -10,6 +10,9 @@
     <string name="hintSearchSecond">Enter Second Date</string>
     <string name="buttonSearch">Search</string>
 
+    <string name="buttonLeaveDate">Enter Leave Date</string>
+    <string name="buttonArrivalDate">Enter Arrival Date</string>
+
     <!-- Create new Itinerary -->
     <string name="hint_itinerary">Enter Itinerary Name</string>
     <string name="button_save">Save</string>

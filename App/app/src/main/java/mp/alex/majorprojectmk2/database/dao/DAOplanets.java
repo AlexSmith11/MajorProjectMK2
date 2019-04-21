@@ -29,7 +29,7 @@ public interface DAOPlanets {
     LiveData<List<PlanetEntity>> searchAllPlanets();
 
     //Search query for planets less distance than x (planets within time frame)
-    @Query("SELECT * FROM planet_table WHERE star_distance < :distance ORDER BY name")
+    @Query("SELECT * FROM planet_table WHERE star_distance < :distance AND star_distance > 0 ORDER BY star_distance ASC")
     LiveData<List<PlanetEntity>> searchDistanceLessThan(double distance);
 
 

@@ -110,7 +110,6 @@ public class SearchResult extends AppCompatActivity {
         });
 
         // Like below, get the PlanetItinerary View Model save as attribute.
-
         ItineraryViewModel itineraryViewModel = ViewModelProviders.of(this).get(ItineraryViewModel.class);
         LiveData<List<ItineraryListEntity>> result = itineraryViewModel.getAllItineraries();
         result.observe(this, new Observer<List<ItineraryListEntity>>() {
@@ -120,7 +119,6 @@ public class SearchResult extends AppCompatActivity {
                     // THROW SOME KIND OF ERROR.
                     return;
                 }
-
                 itineraries = itineraryListEntities;
                 itinerariesDialogTypes = new String[itineraries.size()];
                 for (int i = 0; i < itineraries.size(); i++) {
