@@ -52,7 +52,6 @@ public class SearchResult extends AppCompatActivity {
 
     private PlanetItineraryViewModel planetItineraryViewModel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,9 +137,7 @@ public class SearchResult extends AppCompatActivity {
         });
 
         // Set Up On Click Listener for Each Recycler View View Holder
-
         // When Clicked, get planetId from db and Display Dialog Box with Spinner which contains all Itineraries.
-
         // When the User presses ok, the selected itinerary in the spinner is combined with selected planet id, then this is inserted to the PlanetItinerary Table.
     }
 }

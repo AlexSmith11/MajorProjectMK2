@@ -231,7 +231,6 @@ public class SearchNew extends AppCompatActivity {
         });
     }
 
-
     /**
      * Open SearchResult activity and send search information ahead
      * All searches (and the results they contain) are sent here first.

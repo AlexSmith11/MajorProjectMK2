@@ -1,4 +1,4 @@
-package mp.alex.majorprojectmk2.ui.planitinadapter;
+package mp.alex.majorprojectmk2.ui.planetsubadapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,7 +13,7 @@ import java.util.List;
 import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 
-public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapter.ItinerarySubViewHolder> {
+public class PlanetSubAdapter extends RecyclerView.Adapter<PlanetSubAdapter.PlanetSubViewHolder> {
 
     private final LayoutInflater mInflater;
     private List<PlanetEntity> mPlanetEntity;
@@ -21,30 +21,34 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
     private String Meters = " Meters", Parsecs = " Parsecs";
 
 
-    ItinerarySubAdapter(Context context) {
+    PlanetSubAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public ItinerarySubViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new ItinerarySubViewHolder(itemView);
+    public PlanetSubViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_item, parent, false);
+        return new PlanetSubViewHolder(itemView);
     }
 
+
     @Override
-    public void onBindViewHolder(ItinerarySubViewHolder itinerarySubViewHolder, int position) {
+    public void onBindViewHolder(PlanetSubViewHolder planetSubViewHolder, int position) {
         if (clickListener != null) {
-            itinerarySubViewHolder.setListener(clickListener);
+            planetSubViewHolder.setListener(clickListener);
         }
+
+        //Luminosity calculation here (new method)
 
         if(mPlanetEntity != null){
             PlanetEntity current = mPlanetEntity.get(position);
-            itinerarySubViewHolder.planetItemView.setText(current.getName());
-            itinerarySubViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + Meters);
-            itinerarySubViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + Parsecs);
-            itinerarySubViewHolder.starItemView.setText(current.getStar_name());
+            planetSubViewHolder.planetItemView.setText(current.getName());
+            planetSubViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + Parsecs);
+            planetSubViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + Meters);
+            planetSubViewHolder.starItemView.setText(current.getStar_name());
         } else {
-            itinerarySubViewHolder.planetItemView.setText("No Planets Found");
+            planetSubViewHolder.planetItemView.setText("No Planets Found");
         }
     }
 
@@ -60,11 +64,11 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
         notifyDataSetChanged();
     }
 
-    class ItinerarySubViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class PlanetSubViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView planetItemView, distanceItemView, distanceMetersItemView, starItemView;
         private OnClickListener listener;
 
-        private ItinerarySubViewHolder(View itemView) {
+        private PlanetSubViewHolder(View itemView) {
             super(itemView);
             planetItemView = itemView.findViewById(R.id.planetView);
             distanceItemView = itemView.findViewById(R.id.distanceView);

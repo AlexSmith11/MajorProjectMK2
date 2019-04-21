@@ -1,11 +1,16 @@
 package mp.alex.majorprojectmk2.ui.planitinadapter;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,10 +19,12 @@ import java.util.List;
 
 import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.PlanetItineraryViewModel;
+import mp.alex.majorprojectmk2.database.PlanetViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 import mp.alex.majorprojectmk2.ui.itineraryadapter.ItineraryMainAdapter;
+import mp.alex.majorprojectmk2.ui.planetsubadapter.PlanetSub;
 
 /**
  * Class which will be populated with certain itineraries. Only need one of these. (parcelable)
@@ -38,6 +45,7 @@ public class ItinerarySub extends AppCompatActivity {
     private String[] planetDialogTypes;
 
     private PlanetItineraryViewModel planetItineraryViewModel;
+    private PlanetViewModel planetViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,33 @@ public class ItinerarySub extends AppCompatActivity {
 
             }
         });
+    }
 
+    public void startPlanetSub(final boolean displayData) {
+        LiveData<List<PlanetEntity>> planets = planetViewModel.getAllPlanets();
+        planets.observe(this, new Observer<List<PlanetEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<PlanetEntity> planetEntities) {
+                if (planetEntities == null) {
+                    return;
+                }
+                Log.i("TEST", planetEntities.toString());
+
+                if (displayData) {
+                    openPlanetSub(planetEntities);
+                    return;
+                }
+            }
+        });
+    }
+
+    public void openPlanetSub(List<PlanetEntity> planetEntities) {
+        Intent intent = new Intent(this, PlanetSub.class);
+
+        Bundle extras = new Bundle();
+        extras.putParcelableArrayList(PlanetSub.PLANET_DATA_KEY, new ArrayList<>(planetEntities));
+        intent.putExtras(extras);
+
+        startActivity(intent);
     }
 }
