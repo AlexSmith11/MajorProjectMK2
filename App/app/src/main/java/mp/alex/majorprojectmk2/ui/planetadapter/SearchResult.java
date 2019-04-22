@@ -39,10 +39,10 @@ import mp.alex.majorprojectmk2.ui.SearchNew;
 /**
  * Displays All Current Itineraries in RecyclerView
  *
- * This activity just displays the search results sent from SearchNew activity.
+ * This activity displays the search results sent from SearchNew activity via parcelable.
  * This allows us to receive and display any results sent, regardless of search filters/parameters.
  *
- * This clas handles the onclick
+ * This class handles the onclick
  */
 public class SearchResult extends AppCompatActivity {
     public static final String PLANET_RESULT_KEY = "planet_result";
@@ -52,6 +52,10 @@ public class SearchResult extends AppCompatActivity {
 
     private PlanetItineraryViewModel planetItineraryViewModel;
 
+    /**
+     * Setup adapter, recieve list of planets from SearchNew and populate recycler view.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,7 @@ public class SearchResult extends AppCompatActivity {
         }
         adapter.setPlanetNameCalc(planets);
 
+        //If the distance is so low as for there not to be any planets, toast.
         if (planets.size() == 0) {
             Toast.makeText(getApplicationContext(), "No planets exist within set distance",
                     Toast.LENGTH_LONG).show();
@@ -81,6 +86,9 @@ public class SearchResult extends AppCompatActivity {
 
         planetItineraryViewModel = ViewModelProviders.of(this).get(PlanetItineraryViewModel.class);
 
+        /**
+         * set click listener we have in adapter for all items
+         */
         adapter.setClickListener(new PlanetAdapter.OnClickListener() {
             @Override
             public void onItemClick(final int position, View v) {
@@ -118,6 +126,9 @@ public class SearchResult extends AppCompatActivity {
             }
         });
 
+        /**
+         * builds list of results of search
+         */
         // Like below, get the PlanetItinerary View Model save as attribute.
         ItineraryViewModel itineraryViewModel = ViewModelProviders.of(this).get(ItineraryViewModel.class);
         LiveData<List<ItineraryListEntity>> result = itineraryViewModel.getAllItineraries();

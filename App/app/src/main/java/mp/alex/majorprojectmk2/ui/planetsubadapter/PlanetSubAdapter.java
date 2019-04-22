@@ -47,6 +47,9 @@ public class PlanetSubAdapter extends RecyclerView.Adapter<PlanetSubAdapter.Plan
             planetSubViewHolder.distanceItemView.setText(Double.toString(current.getStar_distance()) + Parsecs);
             planetSubViewHolder.distanceMetersItemView.setText(Double.toString(current.getStar_distance()*3.086e+16) + Meters);
             planetSubViewHolder.starItemView.setText(current.getStar_name());
+            //Luminosity
+            //Planet Temp
+            //Whatever else we want
         } else {
             planetSubViewHolder.planetItemView.setText("No Planets Found");
         }
@@ -74,6 +77,9 @@ public class PlanetSubAdapter extends RecyclerView.Adapter<PlanetSubAdapter.Plan
             distanceItemView = itemView.findViewById(R.id.distanceView);
             distanceMetersItemView = itemView.findViewById(R.id.distanceMetersView);
             starItemView = itemView.findViewById(R.id.starView);
+            //Luminosity
+            //Planet Temp
+            //Whatever else we want
             itemView.setOnClickListener(this);
         }
 

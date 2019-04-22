@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mp.alex.majorprojectmk2.R;
+import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 import mp.alex.majorprojectmk2.database.PlanetItineraryViewModel;
 import mp.alex.majorprojectmk2.database.PlanetViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
@@ -46,7 +48,13 @@ public class ItinerarySub extends AppCompatActivity {
 
     private PlanetItineraryViewModel planetItineraryViewModel;
     private PlanetViewModel planetViewModel;
+    private ItineraryViewModel itineraryViewModel;
 
+    /**
+     * Create and populate recycler list with list of planets sent from ItineraryMain.
+     * This list is determined by PlanetItinerary entity / DAOPlanetItinerary query.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,18 +74,14 @@ public class ItinerarySub extends AppCompatActivity {
         }
         adapter.setPlanetNameCalc(planItin);
 
-        planetItineraryViewModel = ViewModelProviders.of(this).get(PlanetItineraryViewModel.class);
-
-        adapter.setClickListener(new ItinerarySubAdapter.OnClickListener() {
-            @Override
-            public void onItemClick(final int position, View v) {
-                final List<PlanetEntity> planItin = adapter.getPlanetEntity();
-
-
-            }
-        });
     }
 
+    /**
+     * Start PlanetSub and pass planet information in parcelable.
+     * Checks if the planet has any information. If not, return. Unlikely, but possible given CSV integrity.
+     *
+     * @param displayData
+     */
     public void startPlanetSub(final boolean displayData) {
         LiveData<List<PlanetEntity>> planets = planetViewModel.getAllPlanets();
         planets.observe(this, new Observer<List<PlanetEntity>>() {
@@ -96,11 +100,17 @@ public class ItinerarySub extends AppCompatActivity {
         });
     }
 
-    public void openPlanetSub(List<PlanetEntity> planetEntities) {
+    /**
+     * Called when planet tapped to go to PlanetSub activity.
+     * Sends planet information to parcelable.
+     *
+     * @param planetEntity
+     */
+    public void openPlanetSub(List<PlanetEntity> planetEntity) {
         Intent intent = new Intent(this, PlanetSub.class);
 
         Bundle extras = new Bundle();
-        extras.putParcelableArrayList(PlanetSub.PLANET_DATA_KEY, new ArrayList<>(planetEntities));
+        extras.putParcelableArrayList(PlanetSub.PLANET_DATA_KEY, new ArrayList<>(planetEntity));
         intent.putExtras(extras);
 
         startActivity(intent);

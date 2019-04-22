@@ -12,11 +12,21 @@ import java.util.List;
 
 import mp.alex.majorprojectmk2.R;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
+import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 
+/**
+ * This class renders recycler views with the pre-defined layouts
+ * (recycle_listener, itinerary_sub_list_row),  <-- Replace with non-prototype names
+ * Gets info from database, and adds it to the recycler view
+ *
+ * Only want to handle ItineraryEntity NOT PlanetEntity or PlanetItinerary
+ * So only making new itinerary names
+ */
 public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapter.ItinerarySubViewHolder> {
 
     private final LayoutInflater mInflater;
     private List<PlanetEntity> mPlanetEntity;
+    private List<PlanetItinerary> mPlanetItinerary;
     private OnClickListener clickListener;
     private String Meters = " Meters", Parsecs = " Parsecs";
 
@@ -31,6 +41,15 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
         return new ItinerarySubViewHolder(itemView);
     }
 
+    /**
+     * Replaces old data, puts into old view holders already made.
+     * Gets the name, distance, etc of each planet from the PlanetEntity class and adds to view holder IF:
+     * there are any planets in planetList. If not, displays message: "No Planets Found"
+     *
+     * Populates the rows xml with info from the item.
+     * @param itinerarySubViewHolder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(ItinerarySubViewHolder itinerarySubViewHolder, int position) {
         if (clickListener != null) {
@@ -60,6 +79,10 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
         notifyDataSetChanged();
     }
 
+    /**
+     * Internal class to assign each element in an item of recycler view.
+     * Uses internal listener to listen for when item is tapped.
+     */
     class ItinerarySubViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView planetItemView, distanceItemView, distanceMetersItemView, starItemView;
         private OnClickListener listener;
@@ -85,6 +108,11 @@ public class ItinerarySubAdapter extends RecyclerView.Adapter<ItinerarySubAdapte
         }
     }
 
+    /**
+     * Internal listener setup for when individual item is tapped
+     * use when planet is tapped -> PlanetSub
+     * @param clickListener
+     */
     public void setClickListener(OnClickListener clickListener) {
         this.clickListener = clickListener;
     }

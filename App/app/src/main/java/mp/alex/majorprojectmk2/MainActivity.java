@@ -1,6 +1,9 @@
 package mp.alex.majorprojectmk2;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,28 +17,21 @@ import mp.alex.majorprojectmk2.database.ItineraryViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonItineraryMain, buttonSearchNew;
+    private Button buttonItineraryMain, buttonSearchNew, buttonDeleteItineraries;
     private ItineraryViewModel mItineraryViewModel;
 
     /**
      * TO DO:
      * get method names don't line up (i.e. getItineraries, getAllItineraries, etc)
      *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
      * @param savedInstanceState
      */
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mItineraryViewModel = ViewModelProviders.of(this).get(ItineraryViewModel.class);
 
         //New Search Activity Button
         buttonSearchNew = (Button) findViewById(R.id.buttonSearchNew);
@@ -54,32 +50,41 @@ public class MainActivity extends AppCompatActivity {
                 openItineraryListMain();
             }
         });
+
+        //Delete Itineraries Button
+        buttonDeleteItineraries = (Button) findViewById(R.id.buttonDeleteAllItineraries);
+        buttonDeleteItineraries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupDelItin();
+            }
+        });
     }
 
     /**
-     * Delete all Itineraries
-     * @param item
-     * @return
+     * If the user wishes to delete the Itineraries, prompt them to make sure when button tapped.
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    private void popupDelItin() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        mItineraryViewModel.deleteAllItineraries();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete all of your Itineraries?")
+                .setPositiveButton("Delete", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
 
-        if(id == R.id.buttonDeleteAllItineraries) {
-            Toast.makeText(this, "Deleting Itineraries",
-                    Toast.LENGTH_SHORT).show();
-
-            //Then delete data
-            mItineraryViewModel.deleteAllItineraries();
-            return  true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
-
-    /*
-     * Methods that open pages when button pressed
-     */
+    //region Open Activities
     //Opens ItineraryMain
     private void openItineraryListMain() {
         Intent intent = new Intent(this, ItineraryMain.class);
@@ -91,5 +96,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchNew.class);
         startActivity(intent);
     }
+    //endregion
 }
 

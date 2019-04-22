@@ -37,6 +37,7 @@ public class MyRepository {
         //mAllPlanetItineraries = mDAOPlanetItineraries.getPlanetsForItineraries(itineraryId);
     }
 
+    //region Getters
     //Add data to LiveData threads
     /**
      * Returns cached itineraries as LiveData to use on separate thread.
@@ -71,7 +72,9 @@ public class MyRepository {
     LiveData<List<PlanetItinerary>> getAllPlanetItineraries() {
         return mAllPlanetItineraries;
     }
+    //endregion
 
+    //region Wrappers
     //------------------------------ Wrappers for the insert methods -------------------------------
     /**
      * Itinerary insert table
@@ -124,12 +127,21 @@ public class MyRepository {
         new deleteAllItinerariesAsyncTask(mDAOItineraries).execute();
     }
 
-    //---------------------------------------- Async tasks -----------------------------------------
-    //Insert
     /**
-     * Insert
-     * Uses AsyncTask to make sure we're using separate threads when we interact with our DB
+     * Delete a Planet -> Itinerary link (accessed from swiping on ItinerarySub activity)
+     * @param planetItinerary
      */
+    public void deletePlanItinLink(PlanetItinerary planetItinerary) {
+        new deleteOnePlanItinLink(mDAOPlanetItineraries).execute(planetItinerary);
+    }
+    //endregion
+
+    //region AsyncTasks
+    //---------------------------------------- Async tasks -----------------------------------------
+    /**
+     * Uses AsyncTask to make sure we're using separate threads when we interact with our DB.
+     */
+    //---- Insert ----
     private static class insertItineraryAsyncTask extends AsyncTask<ItineraryListEntity, Void, Void> {
         private DAOItineraries mAsyncTaskDao;
 
@@ -170,7 +182,7 @@ public class MyRepository {
     }
 
     //----- Delete -----
-    //Delete Single Row
+    //Delete Single Itinerary Row
     private static class deleteOneItineraryAsyncTask extends AsyncTask<ItineraryListEntity, Void, Void> {
         private DAOItineraries mAsyncTaskDao;
 
@@ -184,7 +196,7 @@ public class MyRepository {
         }
     }
 
-    //Delete All
+    //Delete All Itineraries
     private static class deleteAllItinerariesAsyncTask extends AsyncTask<Void, Void, Void> {
         private DAOItineraries mAsyncTaskDao;
 
@@ -197,5 +209,20 @@ public class MyRepository {
             return null;
         }
     }
+
+    //Delete One planetItinerary link
+    private static class deleteOnePlanItinLink extends AsyncTask<PlanetItinerary, Void, Void> {
+        private DAOPlanetItinerary mAsyncTaskDao;
+
+        deleteOnePlanItinLink(DAOPlanetItinerary daoItin) {
+            mAsyncTaskDao = daoItin;
+        }
+        @Override
+        protected  Void doInBackground(final  PlanetItinerary... params) {
+            mAsyncTaskDao.deletePlanItinLink(params[0]);
+            return null;
+        }
+    }
+    //endregion
 
 }

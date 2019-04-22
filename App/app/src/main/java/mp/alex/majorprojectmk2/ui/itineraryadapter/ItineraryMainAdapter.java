@@ -48,12 +48,8 @@ public class ItineraryMainAdapter extends RecyclerView.Adapter<ItineraryMainAdap
 
     /**
      * Replaces old data, puts into old view holders already made.
-     * Gets the name of each planet from the PlanetModel class and adds to view holder IF:
-     * there are any planets in planetList. If not, displays message: "No Planets"
-     * (because... well, there aren't any left to display).
-     *
-     * Because of depreciation of 'fromHtml', need to check API level and use new or old method.
-     * Sets the bullet point for every element in displayed recycler list.
+     * Gets the name of each itinerary from the ItineraryListEntity class and adds to view holder IF:
+     * there are any itineraries in itineraryList. If not, displays message: "No itineraries Found"
      *
      * Populates the rows xml with info from the item.
      *

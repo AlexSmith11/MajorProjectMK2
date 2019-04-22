@@ -38,9 +38,6 @@ import mp.alex.majorprojectmk2.ui.planitinadapter.ItinerarySub;
  * ItineraryListEntity -> DAOItineraries -> MyRepository -> ItineraryViewModel -> ItineraryMainAdapter ->
  * -> ItineraryMain -> ItinerarySub
  *
- * Display process for ItinerarySub:
- * PlanetItinerary -> DAOPlanetItinerary -> MyRepository ->
- *
  * How to assign planet to itinerary:
  * Call inner join in DAOPlanetItinerary
  *
@@ -57,6 +54,12 @@ public class ItineraryMain extends AppCompatActivity {
     private ItineraryViewModel mItineraryViewModel;
     private PlanetItineraryViewModel mPlanetItineraryViewModel;
 
+    /**
+     * Create a recycler list populated by itineraries. if itinerary is clicked, go to ItinerarySub.
+     * Send planets assigned to specific itinerary by getting list from PlanetItinerary
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +86,10 @@ public class ItineraryMain extends AppCompatActivity {
             }
         });
 
-
+        /*
+        When itinerary clicked, check first to see if it has any planets stored within.
+        If not, do not proceed/enter ItinerarySub
+        */
         mPlanetItineraryViewModel = ViewModelProviders.of(this).get(PlanetItineraryViewModel.class);
         //Setup click listener for any item in the list
         adapter.setClickListener(new ItineraryMainAdapter.OnClickListener() {
@@ -95,6 +101,7 @@ public class ItineraryMain extends AppCompatActivity {
                     return;
                 }
 
+                //If itinerary is populated with at least one planet, proceed to ItinerarySub.
                 LiveData<List<PlanetEntity>> planets = mPlanetItineraryViewModel.getPlanetsForItineraries(selected.id);
                 planets.observe(ItineraryMain.this, new Observer<List<PlanetEntity>>() {
                     @Override
@@ -122,6 +129,17 @@ public class ItineraryMain extends AppCompatActivity {
             }
         });
 
+        //Call swipeDelete method:
+        swipeDelete(recyclerView, adapter);
+    }
+
+    /**
+     * Swipe to delete an itinerary.
+     *
+     * @param recyclerView
+     * @param adapter
+     */
+    private void swipeDelete(RecyclerView recyclerView, final ItineraryMainAdapter adapter) {
         // Add the functionality to swipe items in the
         // recycler view to delete that item
         ItemTouchHelper helper = new ItemTouchHelper(
@@ -133,7 +151,6 @@ public class ItineraryMain extends AppCompatActivity {
                                           RecyclerView.ViewHolder target) {
                         return false;
                     }
-
                     @Override
                     public void onSwiped(RecyclerView.ViewHolder viewHolder,
                                          int direction) {
@@ -148,10 +165,15 @@ public class ItineraryMain extends AppCompatActivity {
                 });
 
         helper.attachToRecyclerView(recyclerView);
-
-
     }
 
+    /**
+     * Send list of planets returned by DAO search query to ItinerarySub activity.
+     * Do this by using a parcelable arraylist.
+     * parcelable unpackaged in ItinerarySub
+     *
+     * @param planetEntities
+     */
     public void startItinerarySub(List<PlanetEntity> planetEntities) {
         Intent intent = new Intent(this, ItinerarySub.class);
 

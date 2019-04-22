@@ -55,4 +55,11 @@ public class PlanetItinerary {
         return this.mPlanetId;
     }
 
+    public void setItinId(int mItineraryId) {
+        this.mItineraryId = mItineraryId;
+    }
+
+    public void setPlanId(int mPlanetId) {
+        this.mPlanetId = mPlanetId;
+    }
 }

@@ -10,6 +10,15 @@ import java.util.List;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 
+
+/**
+ * Allows us to maintain app data if, for example, screen is rotated.
+ * Extends AndroidViewModel, not ViewModel because we want to have references to
+ * activities that may be destroyed when rotation occurs.
+ * AndroidVM uses application context to prevent old references.
+ *
+ * Provides data to UI from Repository, effectively separating the two (abstraction)
+ */
 public class PlanetItineraryViewModel extends AndroidViewModel {
 
     private MyRepository myRepository;
@@ -30,5 +39,10 @@ public class PlanetItineraryViewModel extends AndroidViewModel {
 
     public LiveData<List<PlanetEntity>> getPlanetsForItineraries(int itineraryId) {
         return myRepository.getPlanetsForItineraries(itineraryId);
+    }
+
+    //Delete specific Planet -> Itinerary link
+    public void deletePlanItinLink(PlanetItinerary planetItinerary) {
+        myRepository.deletePlanItinLink(planetItinerary);
     }
 }

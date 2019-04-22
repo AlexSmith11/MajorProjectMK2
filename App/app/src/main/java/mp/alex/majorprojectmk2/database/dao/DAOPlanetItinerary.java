@@ -2,6 +2,7 @@ package mp.alex.majorprojectmk2.database.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -21,6 +22,9 @@ import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
 public interface DAOPlanetItinerary {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PlanetItinerary planetItinerary);
+
+    @Delete
+    void deletePlanItinLink(PlanetItinerary planetItinerary);
 
     //Inner join to combine planet and itinerary id's
     @Query("SELECT * FROM planet_table INNER JOIN planet_itinerary_table pi ON" +

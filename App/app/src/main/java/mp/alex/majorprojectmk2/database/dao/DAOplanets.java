@@ -28,6 +28,10 @@ public interface DAOPlanets {
     @Query("SELECT * FROM planet_table ORDER BY name")
     LiveData<List<PlanetEntity>> searchAllPlanets();
 
+    //To get single planets data based on its id
+    @Query("SELECT * FROM planet_table WHERE id = :id")
+    LiveData<List<PlanetEntity>> getSinglePlanet(int id);
+
     //Search query for planets less distance than x (planets within time frame)
     @Query("SELECT * FROM planet_table WHERE star_distance < :distance AND star_distance > 0 ORDER BY star_distance ASC")
     LiveData<List<PlanetEntity>> searchDistanceLessThan(double distance);
