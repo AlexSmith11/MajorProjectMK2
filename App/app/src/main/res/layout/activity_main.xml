@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/stars">
 
     <Button
         android:id="@+id/buttonItineraryMain"
@@ -16,7 +17,8 @@
         android:text="@string/buttonItineraryMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@android:color/white"/>
 
     <Button
         android:id="@+id/buttonSearchNew"
@@ -29,7 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonItineraryMain" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonItineraryMain"
+        android:backgroundTint="@android:color/white"/>
 
     <Button
         android:id="@+id/buttonDeleteAllItineraries"
@@ -42,6 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSearchNew" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearchNew"
+        android:backgroundTint="@android:color/white"/>
 
 </android.support.constraint.ConstraintLayout>
