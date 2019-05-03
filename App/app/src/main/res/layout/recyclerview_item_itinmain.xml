@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:layout_columnWeight="1"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="24sp"/>
 
 </GridLayout>
