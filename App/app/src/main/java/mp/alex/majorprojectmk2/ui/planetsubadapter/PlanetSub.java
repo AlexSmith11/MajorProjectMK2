@@ -36,22 +36,11 @@ public class PlanetSub extends AppCompatActivity {
 
         mPlanetViewModel = ViewModelProviders.of(this).get(PlanetViewModel.class);
 
-        /*
-        //Setup recycler view list. Setup getSinglePlanet from db
-        mItineraryViewModel.getAllItineraries().observe(this, new Observer<List<ItineraryListEntity>>() {
-            @Override
-            public void onChanged(@Nullable final List<ItineraryListEntity> itineraryListEntities) {
-                //Update cached ver of Itineraries in adapter
-                itineraryLists = itineraryListEntities;
-                adapter.setItineraries(itineraryLists);
-            }
-        });
-        */
-
         Bundle extras = getIntent().getExtras();
         ArrayList<PlanetEntity> planets = new ArrayList<>();
         if (extras != null && extras.containsKey(PLANET_DATA_KEY)) {
-            planets = extras.getParcelableArrayList(PLANET_DATA_KEY);
+            PlanetEntity entity = extras.getParcelable(PLANET_DATA_KEY);
+            planets.add(entity);
         }
         adapter.setPlanetNameCalc(planets);
 

@@ -253,7 +253,7 @@ public class SearchNew extends AppCompatActivity {
     }
 
     /**
-     *
+     * This method creates the graph and assigns its values/data points
      * @return
      */
     private void setUpGraphData(List<PlanetEntity> planets) {

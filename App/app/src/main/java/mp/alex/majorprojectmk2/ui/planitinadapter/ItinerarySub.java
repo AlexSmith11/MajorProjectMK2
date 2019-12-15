@@ -25,6 +25,7 @@ import mp.alex.majorprojectmk2.database.PlanetViewModel;
 import mp.alex.majorprojectmk2.database.entities.ItineraryListEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetEntity;
 import mp.alex.majorprojectmk2.database.entities.PlanetItinerary;
+import mp.alex.majorprojectmk2.ui.itineraryadapter.ItineraryMain;
 import mp.alex.majorprojectmk2.ui.itineraryadapter.ItineraryMainAdapter;
 import mp.alex.majorprojectmk2.ui.planetsubadapter.PlanetSub;
 
@@ -49,6 +50,7 @@ public class ItinerarySub extends AppCompatActivity {
     private PlanetItineraryViewModel planetItineraryViewModel;
     private PlanetViewModel planetViewModel;
     private ItineraryViewModel itineraryViewModel;
+    private ArrayList<PlanetEntity> planItin;
 
     /**
      * Create and populate recycler list with list of planets sent from ItineraryMain.
@@ -66,13 +68,32 @@ public class ItinerarySub extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
+
+
         //Get array list of PlanetItinEntities from parcel
         Bundle extras = getIntent().getExtras();
-        ArrayList<PlanetEntity> planItin = new ArrayList<>();
+        planItin = new ArrayList<>();
         if (extras != null && extras.containsKey(ITINERARY_KEY)) {
             planItin = extras.getParcelableArrayList(ITINERARY_KEY);
         }
+
+        adapter.setClickListener(new ItinerarySubAdapter.OnClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                // Check Exists.
+                PlanetEntity selected = planItin.get(position);
+                if (selected == null) {
+                    return;
+                }
+
+                openPlanetSub(selected);
+            }
+        });
+
         adapter.setPlanetNameCalc(planItin);
+
 
     }
 
@@ -93,7 +114,7 @@ public class ItinerarySub extends AppCompatActivity {
                 Log.i("TEST", planetEntities.toString());
 
                 if (displayData) {
-                    openPlanetSub(planetEntities);
+                    //openPlanetSub(planetEntities);
                     return;
                 }
             }
@@ -106,11 +127,11 @@ public class ItinerarySub extends AppCompatActivity {
      *
      * @param planetEntity
      */
-    public void openPlanetSub(List<PlanetEntity> planetEntity) {
+    public void openPlanetSub(PlanetEntity planetEntity) {
         Intent intent = new Intent(this, PlanetSub.class);
 
         Bundle extras = new Bundle();
-        extras.putParcelableArrayList(PlanetSub.PLANET_DATA_KEY, new ArrayList<>(planetEntity));
+        extras.putParcelable(PlanetSub.PLANET_DATA_KEY, planetEntity);
         intent.putExtras(extras);
 
         startActivity(intent);

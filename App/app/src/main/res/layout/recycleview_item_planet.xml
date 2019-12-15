@@ -27,6 +27,20 @@
         android:layout_columnWeight="1"/>
 
     <TextView
+        android:id="@+id/luminosity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1"/>
+
+    <TextView
+        android:id="@+id/planet_temp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1"/>
+
+    <TextView
         android:id="@+id/starView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -40,13 +54,25 @@
         android:layout_gravity="fill_horizontal"
         android:layout_columnWeight="1" />
     <TextView
-        android:id="@+id/luminosity"
+        android:id="@+id/radius"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
         android:layout_columnWeight="1" />
     <TextView
-        android:id="@+id/whatever"
+        android:id="@+id/discovery_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1" />
+    <TextView
+        android:id="@+id/star_age"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_horizontal"
+        android:layout_columnWeight="1" />
+    <TextView
+        android:id="@+id/star_temp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
